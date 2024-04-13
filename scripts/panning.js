@@ -1,32 +1,30 @@
 class Panning extends CanvasMap {
-  constructor() {
-    super();
+  constructor(context) {
+    super(context);
     this.isPanning = false;
-    this.startX;
-    this.startY;
+    this.startX = 0;
+    this.startY = 0;
     this.offsetX = 0;
     this.offsetY = 0;
+    this.radius = 400;
+    this.speed = 2;
   }
 
-  endPan() {
-    this.isPanning = false;
-  }
-
-  startPan(x, y) {
-    if (this.offsetX < CANVAS_WIDTH && this.offsetY < CANVAS_HEIGHT) {
-      const dx = x - this.startX;
-      const dy = y - this.startY;
-      this.offsetX += dx;
-      this.offsetY += dy;
-      this.startX = x;
-      this.startY = y;
+  startPan = (keyboard, player) => {
+    if (keyboard.isDown(RIGHT)) {
+      const dx = this.speed - this.startX;
+      // const dy = 1 - this.startY;
+      this.offsetX -= dx;
+      // this.offsetY += dy;
+      this.startX = dx;
+      // this.startY = 1;
+      this.isPanning = true;
     }
-  }
 
-  updatePannedMap() {
-    // Clear the canvas
-    this.context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    this.updatePannedMap();
+  };
 
-    this.drawBackground(-this.offsetX, -this.offsetY);
-  }
+  updatePannedMap = () => {
+    this.drawBackground(this.offsetX, this.offsetY);
+  };
 }
