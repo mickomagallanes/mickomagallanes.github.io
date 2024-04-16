@@ -1,110 +1,65 @@
 class Player {
-  constructor(context) {
+  constructor(context, map) {
     this.context = context;
-    this.yBuffer = 12;
-    this.spriteWidth = 48;
-    this.spriteHeight = 96;
-    this.animationFrames = 8;
-    this.animationFrameCounter = 0;
-    this.x = 0;
-    this.y = 0;
-    this.speed = 2;
-    this.image = loadImage("assets/img/player.png");
-    this.spriteAnimationFrames = 10;
-    this.spriteAnimationCounter = 0;
+    this.map = map;
+    this.x = 50;
+    this.y = 40;
+    this.speed = 3;
     this.lastDirection = "down";
-
-    this.spriteAnimation = {
-      right: [
-        { x: this.spriteWidth * 6, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 0, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 1, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 7, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 8, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 2, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 8, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 7, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 1, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 0, y: this.spriteHeight * 2 },
-        { x: this.spriteWidth * 6, y: this.spriteHeight * 2 },
-      ],
-    };
-    this.spriteIdle = {
-      right: { x: this.spriteWidth * 1, y: this.spriteHeight * 2 },
-      down: { x: this.spriteWidth * 7, y: this.spriteHeight * 0 },
-    };
+    this.playerSprite = new PlayerSprite(context);
 
     this.directionFormula = {
       right: { x: (num) => num + this.speed, y: (num) => num },
+      left: { x: (num) => num - this.speed, y: (num) => num },
+      up: { x: (num) => num, y: (num) => num - this.speed },
+      down: { x: (num) => num, y: (num) => num + this.speed },
+      downRight: { x: (num) => num + this.speed, y: (num) => num + this.speed },
+      downLeft: { x: (num) => num - this.speed, y: (num) => num + this.speed },
+      upRight: { x: (num) => num + this.speed, y: (num) => num - this.speed },
+      upLeft: { x: (num) => num - this.speed, y: (num) => num - this.speed },
     };
+
+    this.directionKeys = new Map([
+      [hashArray([RIGHT]), "right"],
+      [hashArray([LEFT]), "left"],
+      [hashArray([UP]), "up"],
+      [hashArray([DOWN]), "down"],
+      [hashArray([DOWN, RIGHT]), "downRight"],
+      [hashArray([DOWN, LEFT]), "downLeft"],
+      [hashArray([UP, RIGHT]), "upRight"],
+      [hashArray([UP, LEFT]), "upLeft"],
+    ]);
   }
 
-  drawPlayer = (sx, sy, dx, dy) => {
-    this.x = dx;
-    this.y = dy;
-    this.context.drawImage(
-      this.image,
-      sx,
-      sy,
-      this.spriteWidth,
-      this.spriteHeight,
-      dx,
-      dy,
-      this.spriteWidth,
-      this.spriteHeight
-    );
-  };
-
-  // TODO: refactor, DRY
   animatePlayer = (isIdle, direction) => {
-    const spriteObj = isIdle ? this.spriteIdle : this.spriteAnimation;
     this.lastDirection = direction;
 
-    if (isIdle) {
-      this.animationFrameCounter = 0;
-      this.spriteAnimationCounter = 0;
+    let tempX = isIdle ? this.x : this.directionFormula[direction].x(this.x);
+    let tempY = isIdle ? this.y : this.directionFormula[direction].y(this.y);
 
-      this.drawPlayer(
-        spriteObj[direction].x,
-        spriteObj[direction].y,
-        this.x,
-        this.y
-      );
+    if (!this.map.isWithinBounds(tempX, tempY)) {
+      tempX = this.x;
+      tempY = this.y;
     } else {
-      const tempX = this.directionFormula[direction].x(this.x);
-      const tempY = this.directionFormula[direction].y(this.y);
-
-      if (this.animationFrameCounter < this.animationFrames) {
-        this.drawPlayer(
-          spriteObj[direction][this.spriteAnimationCounter].x,
-          spriteObj[direction][this.spriteAnimationCounter].y,
-          tempX,
-          tempY
-        );
-
-        this.animationFrameCounter++;
-      } else {
-        this.animationFrameCounter = 0;
-        if (this.spriteAnimationCounter < this.spriteAnimationFrames) {
-          this.spriteAnimationCounter += 1;
-        } else {
-          this.spriteAnimationCounter = 0;
-        }
-        this.drawPlayer(
-          spriteObj[direction][this.spriteAnimationCounter].x,
-          spriteObj[direction][this.spriteAnimationCounter].y,
-          tempX,
-          tempY
-        );
-      }
+      this.x = tempX;
+      this.y = tempY;
     }
+
+    const spriteCoord = this.playerSprite.getSpriteCoord(isIdle, direction);
+
+    this.playerSprite.drawPlayer(spriteCoord.x, spriteCoord.y, tempX, tempY);
+
+    this.playerSprite.calculateNextSprite(isIdle);
   };
 
-  trackPlayer = (keyboard) => {
-    if (keyboard.isDown(RIGHT)) {
-      this.animatePlayer(false, "right");
+  trackMovement = (keyboard) => {
+    const keysPressed = keyboard.getAllDown().sort();
+    const direction = this.directionKeys.get(hashArray(keysPressed));
+
+    if (direction !== undefined) {
+      this.animatePlayer(false, direction);
     } else {
-      this.animatePlayer(true, "down");
+      this.animatePlayer(true, this.lastDirection);
     }
   };
 }

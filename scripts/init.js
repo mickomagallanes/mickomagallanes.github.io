@@ -6,5 +6,4 @@ window.onload = () => {
 
   currentGame = new Game(context);
   currentGame.init();
-  requestAnimationFrame(currentGame.animate);
 };

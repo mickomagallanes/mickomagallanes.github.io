@@ -1,3 +1,5 @@
+const allDir = [LEFT, RIGHT, UP, DOWN];
+
 /**
  * if a key is down, the x/y-axis will be moved in animate
  */
@@ -56,9 +58,7 @@ class Keyboard {
   };
 
   getAllDown = () => {
-    const directions = [LEFT, RIGHT, UP, DOWN];
-
-    return directions.filter((direc) => isDown(direc));
+    return allDir.filter((direc) => this.isDown(direc));
   };
 
   isDown = (keyCode) => {

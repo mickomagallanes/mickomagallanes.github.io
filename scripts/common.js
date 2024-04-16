@@ -1,8 +1,17 @@
-const loadImage = (src) => {
+const loadImage = (src, callback = () => {}) => {
   const img = new Image();
 
   img.src = src;
+
+  img.onload = () => {
+    callback(img);
+  };
+
   return img;
+};
+
+const hashArray = (arr) => {
+  return arr.sort().join("|");
 };
 
 const CANVAS_WIDTH = 1920;

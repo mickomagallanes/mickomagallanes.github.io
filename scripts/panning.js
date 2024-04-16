@@ -11,13 +11,26 @@ class Panning extends CanvasMap {
   }
 
   startPan = (keyboard, player) => {
-    if (keyboard.isDown(RIGHT)) {
-      const dx = this.speed - this.startX;
-      // const dy = 1 - this.startY;
-      this.offsetX -= dx;
-      // this.offsetY += dy;
-      this.startX = dx;
-      // this.startY = 1;
+    // Get the distance between the player and the edges of the canvas
+    const distanceLeft = player.x - this.offsetX;
+    const distanceRight = 1920 - (player.x + 48) - this.offsetX;
+    const distanceTop = player.y - this.offsetY;
+    const distanceBottom = 1080 - (player.y + 96) - this.offsetY;
+
+    // Check if the player is within the panning radius near any canvas edge
+    if (distanceLeft < this.radius) {
+      this.offsetX -= this.speed;
+      this.isPanning = true;
+    } else if (distanceRight < this.radius) {
+      this.offsetX += this.speed;
+      this.isPanning = true;
+    }
+
+    if (distanceTop < this.radius) {
+      this.offsetY -= this.speed;
+      this.isPanning = true;
+    } else if (distanceBottom < this.radius) {
+      this.offsetY += this.speed;
       this.isPanning = true;
     }
 
