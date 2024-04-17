@@ -5,6 +5,7 @@ class Player {
     this.x = 50;
     this.y = 40;
     this.speed = 3;
+    this.speedDiag = 2.5;
     this.lastDirection = "down";
     this.playerSprite = new PlayerSprite(context);
 
@@ -13,10 +14,22 @@ class Player {
       left: { x: (num) => num - this.speed, y: (num) => num },
       up: { x: (num) => num, y: (num) => num - this.speed },
       down: { x: (num) => num, y: (num) => num + this.speed },
-      downRight: { x: (num) => num + this.speed, y: (num) => num + this.speed },
-      downLeft: { x: (num) => num - this.speed, y: (num) => num + this.speed },
-      upRight: { x: (num) => num + this.speed, y: (num) => num - this.speed },
-      upLeft: { x: (num) => num - this.speed, y: (num) => num - this.speed },
+      downRight: {
+        x: (num) => num + this.speedDiag,
+        y: (num) => num + this.speedDiag,
+      },
+      downLeft: {
+        x: (num) => num - this.speedDiag,
+        y: (num) => num + this.speedDiag,
+      },
+      upRight: {
+        x: (num) => num + this.speedDiag,
+        y: (num) => num - this.speedDiag,
+      },
+      upLeft: {
+        x: (num) => num - this.speedDiag,
+        y: (num) => num - this.speedDiag,
+      },
     };
 
     this.directionKeys = new Map([

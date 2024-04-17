@@ -5,7 +5,10 @@ class PlayerSprite {
     this.spriteHeight = 96;
     this.animationFrames = 8;
     this.animationFrameCounter = 0;
-    this.image = loadImage("assets/img/player.png");
+    this.isImageLoaded = false;
+    this.image = loadImage("assets/img/player.png", () => {
+      this.isImageLoaded = true;
+    });
     this.spriteAnimationFrames = 10;
     this.spriteAnimationCounter = 0;
     this.isReversing = false;
@@ -145,17 +148,19 @@ class PlayerSprite {
   }
 
   drawPlayer = (sx, sy, newX, newY) => {
-    this.context.drawImage(
-      this.image,
-      sx * this.spriteWidth,
-      sy * this.spriteHeight,
-      this.spriteWidth,
-      this.spriteHeight,
-      newX,
-      newY,
-      this.spriteWidth,
-      this.spriteHeight
-    );
+    if (this.isImageLoaded) {
+      this.context.drawImage(
+        this.image,
+        sx * this.spriteWidth,
+        sy * this.spriteHeight,
+        this.spriteWidth,
+        this.spriteHeight,
+        newX,
+        newY,
+        this.spriteWidth,
+        this.spriteHeight
+      );
+    }
   };
 
   getSpriteCoord(isIdle, direction) {

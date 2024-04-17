@@ -20,3 +20,5 @@ const LEFT = 37;
 const RIGHT = 39;
 const UP = 38;
 const DOWN = 40;
+const SPRITE_WIDTH = 48;
+const SPRITE_HEIGHT = 96;
