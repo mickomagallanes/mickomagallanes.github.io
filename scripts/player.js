@@ -4,8 +4,8 @@ class Player {
     this.map = map;
     this.x = 50;
     this.y = 40;
-    this.speed = 3;
-    this.speedDiag = 2.5;
+    this.speed = 15;
+    this.speedDiag = 3;
     this.lastDirection = "down";
     this.playerSprite = new PlayerSprite(context);
 
@@ -44,35 +44,45 @@ class Player {
     ]);
   }
 
-  animatePlayer = (isIdle, direction) => {
-    this.lastDirection = direction;
-
-    let tempX = isIdle ? this.x : this.directionFormula[direction].x(this.x);
-    let tempY = isIdle ? this.y : this.directionFormula[direction].y(this.y);
+  movePlayer = (direction) => {
+    let tempX = this.x;
+    let tempY = this.y;
 
     if (!this.map.isWithinBounds(tempX, tempY)) {
-      tempX = this.x;
-      tempY = this.y;
-    } else {
-      this.x = tempX;
-      this.y = tempY;
+      return; // Do not move if outside map bounds
     }
 
-    const spriteCoord = this.playerSprite.getSpriteCoord(isIdle, direction);
+    tempX = this.directionFormula[direction].x(this.x);
+    tempY = this.directionFormula[direction].y(this.y);
 
-    this.playerSprite.drawPlayer(spriteCoord.x, spriteCoord.y, tempX, tempY);
+    if (!this.map.isWithinBounds(tempX, tempY)) {
+      return; // Do not move if next position is outside map bounds
+    }
 
+    this.x = tempX;
+    this.y = tempY;
+  };
+
+  animatePlayer = (isIdle, direction) => {
+    const spriteCoord = isIdle
+      ? this.playerSprite.getSpriteCoord(true, this.lastDirection)
+      : this.playerSprite.getSpriteCoord(false, direction);
+
+    this.playerSprite.drawPlayer(spriteCoord.x, spriteCoord.y, this.x, this.y);
     this.playerSprite.calculateNextSprite(isIdle);
   };
 
   trackMovement = (keyboard) => {
     const keysPressed = keyboard.getAllDown().sort();
-    const direction = this.directionKeys.get(hashArray(keysPressed));
+    const activeDirection = this.directionKeys.get(hashArray(keysPressed));
 
-    if (direction !== undefined) {
-      this.animatePlayer(false, direction);
+    if (activeDirection !== undefined) {
+      this.movePlayer(activeDirection);
+
+      this.animatePlayer(false, activeDirection);
+      this.lastDirection = activeDirection;
     } else {
-      this.animatePlayer(true, this.lastDirection);
+      this.animatePlayer(true);
     }
   };
 }

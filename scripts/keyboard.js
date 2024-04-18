@@ -1,11 +1,12 @@
 const allDir = [LEFT, RIGHT, UP, DOWN];
+const initKeys = { [LEFT]: false, [RIGHT]: false, [UP]: false, [DOWN]: false };
 
 /**
  * if a key is down, the x/y-axis will be moved in animate
  */
 class Keyboard {
   constructor() {
-    this.keys = { [LEFT]: false, [RIGHT]: false, [UP]: false, [DOWN]: false };
+    this.keys = { ...initKeys };
     this.diagonalBuffer = 45; // a buffer to determine if touch start is diagonal on touch move
     this.prevTouchX = null;
     this.prevTouchY = null;
@@ -18,6 +19,13 @@ class Keyboard {
     window.addEventListener("touchstart", this.onTouchStart);
     window.addEventListener("touchmove", this.onTouchMove);
     window.addEventListener("touchend", this.onTouchEnd);
+    window.addEventListener("visibilitychange", this.resetKeys);
+    window.addEventListener("blur", this.resetKeys);
+    window.addEventListener("focus", this.resetKeys);
+  };
+
+  resetKeys = () => {
+    this.keys = { ...initKeys };
   };
 
   onKeyEvent = (event) => {
@@ -51,10 +59,7 @@ class Keyboard {
     // Clear touch direction when touch is lifted
     this.prevTouchX = null;
     this.prevTouchY = null;
-    this.keys[RIGHT] = false;
-    this.keys[LEFT] = false;
-    this.keys[UP] = false;
-    this.keys[DOWN] = false;
+    this.resetKeys();
   };
 
   updateTouchDirection(touchX, touchY) {

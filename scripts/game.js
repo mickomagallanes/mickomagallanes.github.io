@@ -13,8 +13,8 @@ class Game {
 
   animate = () => {
     this.keyboard.listenForEvents();
-    // this.panning.startPan(this.player);
     this.map.drawBackground();
+    this.panning.startPan(this.player, this.keyboard);
     this.player.trackMovement(this.keyboard);
 
     // track player's position, pass it to pan (if canvas is too large, allow pan camera)
