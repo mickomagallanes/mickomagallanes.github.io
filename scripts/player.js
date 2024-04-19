@@ -1,13 +1,12 @@
 class Player {
-  constructor(context, map) {
-    this.context = context;
+  constructor(map) {
     this.map = map;
     this.x = 50;
     this.y = 40;
-    this.speed = 15;
+    this.speed = 4;
     this.speedDiag = 3;
     this.lastDirection = "down";
-    this.playerSprite = new PlayerSprite(context);
+    this.playerSprite = new PlayerSprite();
 
     this.directionFormula = {
       right: { x: (num) => num + this.speed, y: (num) => num },
@@ -45,15 +44,8 @@ class Player {
   }
 
   movePlayer = (direction) => {
-    let tempX = this.x;
-    let tempY = this.y;
-
-    if (!this.map.isWithinBounds(tempX, tempY)) {
-      return; // Do not move if outside map bounds
-    }
-
-    tempX = this.directionFormula[direction].x(this.x);
-    tempY = this.directionFormula[direction].y(this.y);
+    let tempX = this.directionFormula[direction].x(this.x);
+    let tempY = this.directionFormula[direction].y(this.y);
 
     if (!this.map.isWithinBounds(tempX, tempY)) {
       return; // Do not move if next position is outside map bounds
@@ -69,6 +61,7 @@ class Player {
       : this.playerSprite.getSpriteCoord(false, direction);
 
     this.playerSprite.drawPlayer(spriteCoord.x, spriteCoord.y, this.x, this.y);
+
     this.playerSprite.calculateNextSprite(isIdle);
   };
 

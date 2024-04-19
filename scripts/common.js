@@ -1,3 +1,15 @@
+const CANVAS_WIDTH = 1920;
+const CANVAS_HEIGHT = 1080;
+const LEFT = 37;
+const RIGHT = 39;
+const UP = 38;
+const DOWN = 40;
+const SPRITE_WIDTH = 48;
+const SPRITE_HEIGHT = 96;
+
+const CANVAS = document.getElementById("game");
+const CONTEXT = CANVAS.getContext("2d");
+
 const loadImage = (src, callback = () => {}) => {
   const img = new Image();
 
@@ -15,10 +27,7 @@ const hashArray = (arr) => {
 };
 
 function getVisibleCanvasWidth() {
-  const canvas = document.getElementById("game");
-  if (!canvas) return 0; // Canvas not found
-
-  const canvasRect = canvas.getBoundingClientRect();
+  const canvasRect = CANVAS.getBoundingClientRect();
   const visibleWidth =
     Math.min(canvasRect.right, window.innerWidth) -
     Math.max(canvasRect.left, 0);
@@ -27,10 +36,9 @@ function getVisibleCanvasWidth() {
 }
 
 function getVisibleCanvasHeight() {
-  const canvas = document.getElementById("game");
-  if (!canvas) return 0; // Canvas not found
+  if (!CANVAS) return 0; // Canvas not found
 
-  const canvasRect = canvas.getBoundingClientRect();
+  const canvasRect = CANVAS.getBoundingClientRect();
   const visibleHeight =
     Math.min(canvasRect.bottom, window.innerHeight) -
     Math.max(canvasRect.top, 0);
@@ -38,11 +46,28 @@ function getVisibleCanvasHeight() {
   return visibleHeight;
 }
 
-const CANVAS_WIDTH = 1920;
-const CANVAS_HEIGHT = 1080;
-const LEFT = 37;
-const RIGHT = 39;
-const UP = 38;
-const DOWN = 40;
-const SPRITE_WIDTH = 48;
-const SPRITE_HEIGHT = 96;
+function createDirections(y) {
+  return [
+    { x: 7, y: y },
+    { x: 0, y: y },
+    { x: 6, y: y },
+    { x: 0, y: y },
+    { x: 1, y: y },
+    { x: 2, y: y },
+    { x: 8, y: y },
+    { x: 2, y: y },
+  ];
+}
+
+function createDirectionsDiag(y) {
+  return [
+    { x: 4, y: y },
+    { x: 3, y: y },
+    { x: 11, y: y },
+    { x: 3, y: y },
+    { x: 4, y: y },
+    { x: 5, y: y },
+    { x: 9, y: y },
+    { x: 5, y: y },
+  ];
+}
