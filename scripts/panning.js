@@ -3,9 +3,16 @@ class Panning extends CanvasMap {
     super();
     this.canvasPositionX = 0;
     this.canvasPositionY = 0;
+
+    this.directionKeys = new Map([
+      [hashArray([DOWN, RIGHT]), "downRight"],
+      [hashArray([DOWN, LEFT]), "downLeft"],
+      [hashArray([UP, RIGHT]), "upRight"],
+      [hashArray([UP, LEFT]), "upLeft"],
+    ]);
   }
 
-  // TODO: refactor this
+  // TODO: refactor this into smaller
   startPan = (player, keyboard) => {
     const isRight = keyboard.isDown(RIGHT);
     const isLeft = keyboard.isDown(LEFT);
@@ -16,28 +23,31 @@ class Panning extends CanvasMap {
     const screenYMax = getVisibleCanvasHeight();
     const radiusX = screenXMax * 0.5;
     const radiusY = screenYMax * 0.5;
+    let newX = this.canvasPositionX;
+    let newY = this.canvasPositionY;
 
     const playerInCenterX =
       player.x + radiusX >= screenXMax && player.x + radiusX <= CANVAS_WIDTH;
     const playerInCenterY =
       player.y + radiusY >= screenYMax && player.y + radiusY <= CANVAS_HEIGHT;
 
-    let newX = this.canvasPositionX;
-    let newY = this.canvasPositionY;
+    const keysPressed = keyboard.getAllDown().sort();
+    const activeDirection = this.directionKeys.get(hashArray(keysPressed));
+    const currentSpeed = activeDirection ? player.speedDiag : player.speed;
 
-    if (playerInCenterX) {
+    if (playerInCenterX && player.previousX !== player.x) {
       if (isRight) {
-        newX -= player.speed;
+        newX -= currentSpeed;
       } else if (isLeft) {
-        newX += player.speed;
+        newX += currentSpeed;
       }
     }
 
-    if (playerInCenterY) {
+    if (playerInCenterY && player.previousY !== player.y) {
       if (isDown) {
-        newY -= player.speed;
+        newY -= currentSpeed;
       } else if (isUp) {
-        newY += player.speed;
+        newY += currentSpeed;
       }
     }
 
@@ -48,8 +58,10 @@ class Panning extends CanvasMap {
     if (Math.abs(newY) + screenYMax >= CANVAS_HEIGHT || newY > 0) {
       newY = this.canvasPositionY;
     }
+
     // Update canvas transform
     CANVAS.style.transform = `translate(${newX}px, ${newY}px)`;
+    FOG_CANVAS.style.transform = `translate(${newX}px, ${newY}px)`;
     this.canvasPositionX = newX;
     this.canvasPositionY = newY;
   };

@@ -1,5 +1,6 @@
 const CANVAS_WIDTH = 1920;
 const CANVAS_HEIGHT = 1080;
+const BOTTOM_TREES_HEIGHT = 69;
 const LEFT = 37;
 const RIGHT = 39;
 const UP = 38;
@@ -9,6 +10,8 @@ const SPRITE_HEIGHT = 96;
 
 const CANVAS = document.getElementById("game");
 const CONTEXT = CANVAS.getContext("2d");
+const FOG_CANVAS = document.getElementById("fogCanvas");
+const FOG_CONTEXT = FOG_CANVAS.getContext("2d");
 
 const loadImage = (src, callback = () => {}) => {
   const img = new Image();

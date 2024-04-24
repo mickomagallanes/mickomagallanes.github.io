@@ -7,6 +7,8 @@ class Player {
     this.speedDiag = 3;
     this.lastDirection = "down";
     this.playerSprite = new PlayerSprite();
+    this.previousX = 0;
+    this.previousY = 0;
 
     this.directionFormula = {
       right: { x: (num) => num + this.speed, y: (num) => num },
@@ -68,7 +70,9 @@ class Player {
   trackMovement = (keyboard) => {
     const keysPressed = keyboard.getAllDown().sort();
     const activeDirection = this.directionKeys.get(hashArray(keysPressed));
-
+    this.previousX = this.x;
+    this.previousY = this.y;
+    
     if (activeDirection !== undefined) {
       this.movePlayer(activeDirection);
 

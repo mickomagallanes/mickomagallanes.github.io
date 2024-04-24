@@ -19,6 +19,8 @@ class Game {
     this.panning.startPan(this.player, this.keyboard);
     this.player.trackMovement(this.keyboard);
     this.map.drawBottomTrees();
+    this.map.drawFog();
+    this.map.drawReveal(this.player.x, this.player.y);
 
     requestAnimationFrame(this.animate);
   };
