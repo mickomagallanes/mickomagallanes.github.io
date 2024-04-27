@@ -62,7 +62,7 @@ class Keyboard {
     this.resetKeys();
   };
 
-  updateTouchDirection(touchX, touchY) {
+  updateTouchDirection = (touchX, touchY) => {
     if (this.prevTouchX !== null && this.prevTouchY !== null) {
       const deltaX = touchX - this.prevTouchX;
       const deltaY = touchY - this.prevTouchY;
@@ -85,7 +85,7 @@ class Keyboard {
         }
       }
     }
-  }
+  };
 
   getAllDown = () => {
     return allDir.filter((direc) => this.isDown(direc));

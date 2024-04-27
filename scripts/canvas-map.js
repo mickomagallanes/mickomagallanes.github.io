@@ -20,16 +20,16 @@ class CanvasMap {
     }
   };
 
-  drawFog() {
+  drawFog = () => {
     // Set fill style for the fog
     FOG_CONTEXT.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     FOG_CONTEXT.fillStyle = "rgba(0, 0, 0)";
 
     // Fill the fog canvas with the fog color
     FOG_CONTEXT.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  }
+  };
 
-  drawReveal(playerX, playerY) {
+  drawReveal = (playerX, playerY) => {
     // Define the center and radius of the reveal circle
     const centerX = playerX + SPRITE_WIDTH / 2;
     const centerY = playerY + SPRITE_HEIGHT / 2;
@@ -58,7 +58,7 @@ class CanvasMap {
 
     // Fill the fog canvas with the radial gradient, revealing the area around the player
     FOG_CONTEXT.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  }
+  };
 
   drawBottomTrees = () => {
     if (this.isImageLoaded) {

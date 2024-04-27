@@ -35,7 +35,7 @@ class PlayerSprite {
     };
   }
 
-  calculateNextSprite(isIdle) {
+  calculateNextSprite = (isIdle) => {
     if (!isIdle) {
       this.spriteAnimationCounter =
         (this.spriteAnimationCounter +
@@ -48,7 +48,7 @@ class PlayerSprite {
       this.animationFrameCounter = 0;
       this.spriteAnimationCounter = 0;
     }
-  }
+  };
 
   drawPlayer = (sx, sy, newX, newY) => {
     if (this.isImageLoaded) {
@@ -66,7 +66,7 @@ class PlayerSprite {
     }
   };
 
-  getSpriteCoord(isIdle, direction) {
+  getSpriteCoord = (isIdle, direction) => {
     const spriteObj = isIdle ? this.spriteIdle : this.spriteAnimation;
 
     const animationFrame = isIdle
@@ -74,5 +74,5 @@ class PlayerSprite {
       : spriteObj[direction][this.spriteAnimationCounter];
 
     return animationFrame;
-  }
+  };
 }

@@ -1,12 +1,13 @@
 class Player {
   constructor(map) {
     this.map = map;
-    this.x = 50;
-    this.y = 40;
+    this.x = 140;
+    this.y = 140;
     this.speed = 4;
     this.speedDiag = 3;
     this.lastDirection = "down";
     this.playerSprite = new PlayerSprite();
+    this.playerDialog = new PlayerDialog();
     this.previousX = 0;
     this.previousY = 0;
 
@@ -65,6 +66,8 @@ class Player {
     this.playerSprite.drawPlayer(spriteCoord.x, spriteCoord.y, this.x, this.y);
 
     this.playerSprite.calculateNextSprite(isIdle);
+
+    this.playerDialog.trackDialog(this.x, this.y);
   };
 
   trackMovement = (keyboard) => {
@@ -72,7 +75,7 @@ class Player {
     const activeDirection = this.directionKeys.get(hashArray(keysPressed));
     this.previousX = this.x;
     this.previousY = this.y;
-    
+
     if (activeDirection !== undefined) {
       this.movePlayer(activeDirection);
 
