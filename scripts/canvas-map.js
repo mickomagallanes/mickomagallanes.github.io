@@ -13,6 +13,10 @@ class CanvasMap {
     this.bottomTrees = loadImage("assets/img/bottom-trees.png");
   }
 
+  getIsImageLoaded = () => {
+    return this.isImageLoaded;
+  };
+
   drawBackground = (x = 0, y = 0) => {
     CONTEXT.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     if (this.isImageLoaded) {
