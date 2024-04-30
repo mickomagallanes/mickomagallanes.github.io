@@ -37,10 +37,11 @@ class PlayerSprite {
 
   calculateNextSprite = (isIdle) => {
     if (!isIdle) {
-      this.spriteAnimationCounter =
-        (this.spriteAnimationCounter +
-          (this.animationFrameCounter + 1 < this.animationFrames ? 0 : 1)) %
-        this.spriteAnimationFrames;
+      // check animation buffer if ready to show next sprite
+      if (this.animationFrameCounter + 1 >= this.animationFrames) {
+        this.spriteAnimationCounter =
+          (this.spriteAnimationCounter + 1) % this.spriteAnimationFrames;
+      }
 
       this.animationFrameCounter =
         (this.animationFrameCounter + 1) % this.animationFrames;

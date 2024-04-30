@@ -3,22 +3,34 @@ class Panning extends CanvasMap {
     super();
     this.canvasPositionX = 0;
     this.canvasPositionY = 0;
+    this.speed = 4;
+    this.speedDiag = 3;
 
-    this.directionKeys = new Map([
-      [hashArray([DOWN, RIGHT]), "downRight"],
-      [hashArray([DOWN, LEFT]), "downLeft"],
-      [hashArray([UP, RIGHT]), "upRight"],
-      [hashArray([UP, LEFT]), "upLeft"],
-    ]);
+    this.directionFormula = {
+      right: { x: (num) => num - this.speed, y: (num) => num },
+      left: { x: (num) => num + this.speed, y: (num) => num },
+      up: { x: (num) => num, y: (num) => num + this.speed },
+      down: { x: (num) => num, y: (num) => num - this.speed },
+      downRight: {
+        x: (num) => num - this.speedDiag,
+        y: (num) => num - this.speedDiag,
+      },
+      downLeft: {
+        x: (num) => num + this.speedDiag,
+        y: (num) => num - this.speedDiag,
+      },
+      upRight: {
+        x: (num) => num - this.speedDiag,
+        y: (num) => num + this.speedDiag,
+      },
+      upLeft: {
+        x: (num) => num + this.speedDiag,
+        y: (num) => num + this.speedDiag,
+      },
+    };
   }
 
-  // TODO: refactor this into smaller
   startPan = (player, keyboard) => {
-    const isRight = keyboard.isDown(RIGHT);
-    const isLeft = keyboard.isDown(LEFT);
-    const isDown = keyboard.isDown(DOWN);
-    const isUp = keyboard.isDown(UP);
-
     const screenXMax = getVisibleCanvasWidth();
     const screenYMax = getVisibleCanvasHeight();
     const radiusX = screenXMax * 0.5;
@@ -32,25 +44,21 @@ class Panning extends CanvasMap {
       player.y + radiusY >= screenYMax && player.y + radiusY <= CANVAS_HEIGHT;
 
     const keysPressed = keyboard.getAllDown().sort();
-    const activeDirection = this.directionKeys.get(hashArray(keysPressed));
-    const currentSpeed = activeDirection ? player.speedDiag : player.speed;
+    const activeDirection = DIRECTION_KEYS.get(hashArray(keysPressed));
 
-    if (playerInCenterX && player.previousX !== player.x) {
-      if (isRight) {
-        newX -= currentSpeed;
-      } else if (isLeft) {
-        newX += currentSpeed;
+    if (activeDirection) {
+      // if player in is center, and player changes its position, then proceed
+      if (playerInCenterX && player.previousX !== player.x) {
+        newX = this.directionFormula[activeDirection].x(newX);
+      }
+
+      // if player in is center, and player changes its position, then proceed
+      if (playerInCenterY && player.previousY !== player.y) {
+        newY = this.directionFormula[activeDirection].y(newY);
       }
     }
 
-    if (playerInCenterY && player.previousY !== player.y) {
-      if (isDown) {
-        newY -= currentSpeed;
-      } else if (isUp) {
-        newY += currentSpeed;
-      }
-    }
-
+    // if new panning position exceeds canvas, then don't proceed
     if (Math.abs(newX) + screenXMax >= CANVAS_WIDTH || newX > 0) {
       newX = this.canvasPositionX;
     }

@@ -37,8 +37,8 @@ class CanvasMap {
     // Define the center and radius of the reveal circle
     const centerX = playerX + SPRITE_WIDTH / 2;
     const centerY = playerY + SPRITE_HEIGHT / 2;
-    const radius = 250;
-    const centerRadius = 25;
+    const radius = 300;
+    const centerRadius = 35;
 
     // Create a radial gradient
     const gradient = FOG_CONTEXT.createRadialGradient(

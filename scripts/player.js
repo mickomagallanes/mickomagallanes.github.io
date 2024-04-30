@@ -33,17 +33,6 @@ class Player {
         y: (num) => num - this.speedDiag,
       },
     };
-
-    this.directionKeys = new Map([
-      [hashArray([RIGHT]), "right"],
-      [hashArray([LEFT]), "left"],
-      [hashArray([UP]), "up"],
-      [hashArray([DOWN]), "down"],
-      [hashArray([DOWN, RIGHT]), "downRight"],
-      [hashArray([DOWN, LEFT]), "downLeft"],
-      [hashArray([UP, RIGHT]), "upRight"],
-      [hashArray([UP, LEFT]), "upLeft"],
-    ]);
   }
 
   movePlayer = (direction) => {
@@ -72,7 +61,7 @@ class Player {
 
   trackMovement = (keyboard) => {
     const keysPressed = keyboard.getAllDown().sort();
-    const activeDirection = this.directionKeys.get(hashArray(keysPressed));
+    const activeDirection = DIRECTION_KEYS.get(hashArray(keysPressed));
     this.previousX = this.x;
     this.previousY = this.y;
 

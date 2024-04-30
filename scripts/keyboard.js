@@ -1,5 +1,14 @@
-const allDir = [LEFT, RIGHT, UP, DOWN];
-const initKeys = { [LEFT]: false, [RIGHT]: false, [UP]: false, [DOWN]: false };
+const allDir = [LEFT, RIGHT, UP, DOWN, LEFT_A, RIGHT_D, UP_W, DOWN_S];
+const initKeys = {
+  [LEFT]: false,
+  [RIGHT]: false,
+  [UP]: false,
+  [DOWN]: false,
+  [LEFT_A]: false,
+  [RIGHT_D]: false,
+  [UP_W]: false,
+  [DOWN_S]: false,
+};
 
 /**
  * if a key is down, the x/y-axis will be moved in animate
@@ -67,10 +76,12 @@ class Keyboard {
       const deltaX = touchX - this.prevTouchX;
       const deltaY = touchY - this.prevTouchY;
 
+      // compare current touch to prev if has significant direction change, with diagonal buffer
       const significantX = Math.abs(deltaX) > this.diagonalBuffer;
       const significantY = Math.abs(deltaY) > this.diagonalBuffer;
 
       if (significantX || significantY) {
+        // set if a key is active
         this.keys[RIGHT] = deltaX > 0 && significantX;
         this.keys[LEFT] = deltaX < 0 && significantX;
         this.keys[UP] = deltaY < 0 && significantY;

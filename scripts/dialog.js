@@ -14,19 +14,28 @@ class Dialog {
     this.lineHeight = Math.floor(this.fontSize * 1.5);
   }
 
-  setDialog = (text) => {
+  setDialog(text) {
     this.currentDialog = text;
     this.dialogCounter = 0;
-  };
+  }
 
-  getBreakLines = () => {
-    let textLines = [];
+  animateDialog(x, y) {
+    if (this.currentDialog !== null) {
+      this.displayDialog(x, y);
+      this.dialogCounter++;
+      if (this.dialogCounter >= this.dialogDuration) {
+        this.clearDialog();
+      }
+    }
+  }
 
+  getBreakLines() {
+    const textLines = [];
     const words = this.currentDialog.split(" ");
     let currentLine = "";
     let textWidth = 0;
 
-    for (let word of words) {
+    for (const word of words) {
       const wordWidth = CONTEXT.measureText(word).width;
 
       if (textWidth + wordWidth < this.dialogBoxWidth - this.dialogPadding) {
@@ -41,57 +50,41 @@ class Dialog {
     textLines.push(currentLine.trim());
 
     return textLines;
-  };
+  }
 
-  animateDialog = (x, y) => {
-    if (this.currentDialog !== null) {
-      // Clear previous dialog box
+  displayDialog(x, y) {
+    const textLines = this.getBreakLines();
+    const dialogBoxHeight =
+      textLines.length * this.lineHeight + this.dialogPadding;
 
-      this.displayDialog(x, y);
+    const currentBoxWidth = this.calculateBoxWidth(textLines);
+    const dialogX = x + SPRITE_WIDTH / 2 - currentBoxWidth / 2;
+    const dialogY = y + this.dialogBoxOffsetY * textLines.length;
 
-      // Increment dialog counter
-      this.dialogCounter++;
+    CONTEXT.fillStyle = `rgba(0, 0, 0, ${this.dialogOpacity})`;
+    CONTEXT.fillRect(dialogX, dialogY, currentBoxWidth, dialogBoxHeight);
 
-      // Check if dialog duration is reached
-      if (this.dialogCounter >= this.dialogDuration) {
-        this.clearDialog();
-      }
-    }
-  };
+    CONTEXT.fillStyle = "white";
+    CONTEXT.font = `${this.fontSize}px Arial`;
+    CONTEXT.textAlign = "left";
 
-  displayDialog = (x, y) => {
+    let textY = dialogY + this.lineHeight;
+    textLines.forEach((line) => {
+      CONTEXT.fillText(line, dialogX + 10, textY);
+      textY += this.lineHeight;
+    });
+  }
+
+  calculateBoxWidth(textLines) {
     let textWidth = 0;
-    let textLines = this.getBreakLines();
 
-    // Measure the longest line
-    for (let i = 0; i < textLines.length; i++) {
-      const line = textLines[i];
+    for (const line of textLines) {
       const lineWidth = CONTEXT.measureText(line).width;
       textWidth = Math.max(textWidth, lineWidth);
     }
 
-    let currentBoxWidth = textWidth + this.dialogPadding; // Add some padding
-
-    const dialogBoxHeight =
-      textLines.length * this.lineHeight + this.dialogPadding; // adjusted based on line break
-
-    const dialogX = x + SPRITE_WIDTH / 2 - currentBoxWidth / 2;
-    const dialogY = y + this.dialogBoxOffsetY * textLines.length;
-
-    // Draw dialogue box
-    CONTEXT.fillStyle = `rgba(0, 0, 0, ${this.dialogOpacity})`;
-    CONTEXT.fillRect(dialogX, dialogY, currentBoxWidth, dialogBoxHeight);
-
-    // Draw dialogue text
-    CONTEXT.fillStyle = "white";
-    CONTEXT.font = `${this.fontSize}px Arial`;
-    CONTEXT.textAlign = "left"; // Changed alignment to left
-    let textY = dialogY + this.lineHeight;
-    textLines.forEach((line) => {
-      CONTEXT.fillText(line, dialogX + 10, textY); // Adjusted x-coordinate
-      textY += this.lineHeight;
-    });
-  };
+    return textWidth + this.dialogPadding;
+  }
 
   // Method to clear dialog from canvas
   clearDialog = () => {

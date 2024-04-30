@@ -5,6 +5,10 @@ const LEFT = 37;
 const RIGHT = 39;
 const UP = 38;
 const DOWN = 40;
+const LEFT_A = 65;
+const RIGHT_D = 68;
+const UP_W = 87;
+const DOWN_S = 83;
 const SPRITE_WIDTH = 48;
 const SPRITE_HEIGHT = 96;
 
@@ -12,6 +16,30 @@ const CANVAS = document.getElementById("game");
 const CONTEXT = CANVAS.getContext("2d");
 const FOG_CANVAS = document.getElementById("fogCanvas");
 const FOG_CONTEXT = FOG_CANVAS.getContext("2d");
+
+const hashArray = (arr) => {
+  return arr.sort().join("|");
+};
+
+const DIRECTION_KEYS = new Map([
+  [hashArray([RIGHT]), "right"],
+  [hashArray([LEFT]), "left"],
+  [hashArray([UP]), "up"],
+  [hashArray([DOWN]), "down"],
+  [hashArray([DOWN, RIGHT]), "downRight"],
+  [hashArray([DOWN, LEFT]), "downLeft"],
+  [hashArray([UP, RIGHT]), "upRight"],
+  [hashArray([UP, LEFT]), "upLeft"],
+
+  [hashArray([RIGHT_D]), "right"],
+  [hashArray([LEFT_A]), "left"],
+  [hashArray([UP_W]), "up"],
+  [hashArray([DOWN_S]), "down"],
+  [hashArray([DOWN_S, RIGHT_D]), "downRight"],
+  [hashArray([DOWN_S, LEFT_A]), "downLeft"],
+  [hashArray([UP_W, RIGHT_D]), "upRight"],
+  [hashArray([UP_W, LEFT_A]), "upLeft"],
+]);
 
 const loadImage = (src, callback = () => {}) => {
   const img = new Image();
@@ -23,10 +51,6 @@ const loadImage = (src, callback = () => {}) => {
   };
 
   return img;
-};
-
-const hashArray = (arr) => {
-  return arr.sort().join("|");
 };
 
 function getVisibleCanvasWidth() {
