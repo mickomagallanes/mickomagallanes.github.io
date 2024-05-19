@@ -14,11 +14,17 @@ class Dialog {
     this.lineHeight = Math.floor(this.fontSize * 1.5);
   }
 
+  // each player and npc has own currentDialog
   setDialog(text) {
     this.currentDialog = text;
     this.dialogCounter = 0;
   }
 
+  /**
+   * rendered every frame
+   * @param {*} x of player/npc
+   * @param {*} y of player/npc
+   */
   animateDialog(x, y) {
     if (this.currentDialog !== null) {
       this.displayDialog(x, y);
@@ -29,6 +35,10 @@ class Dialog {
     }
   }
 
+  /**
+   * splits the current dialog and splice it based on dialog length
+   * @returns [] array of spliced words based on dialog length
+   */
   getBreakLines() {
     const textLines = [];
     const words = this.currentDialog.split(" ");
@@ -38,10 +48,12 @@ class Dialog {
     for (const word of words) {
       const wordWidth = CONTEXT.measureText(word).width;
 
+      // add to current array item if word still fits
       if (textWidth + wordWidth < this.dialogBoxWidth - this.dialogPadding) {
         currentLine += word + " ";
         textWidth += wordWidth;
       } else {
+        // skip to next array item
         textLines.push(currentLine.trim());
         currentLine = word + " ";
         textWidth = wordWidth;
@@ -52,17 +64,23 @@ class Dialog {
     return textLines;
   }
 
+  /**
+   *
+   * @param {*} x of player/npc
+   * @param {*} y of player/npc
+   */
   displayDialog(x, y) {
     const textLines = this.getBreakLines();
     const dialogBoxHeight =
       textLines.length * this.lineHeight + this.dialogPadding;
 
-    const currentBoxWidth = this.calculateBoxWidth(textLines);
-    const dialogX = x + SPRITE_WIDTH / 2 - currentBoxWidth / 2;
+    const dialogBoxWidth = this.getDialogBoxWidth(textLines);
+
+    const dialogX = x + SPRITE_WIDTH / 2 - dialogBoxWidth / 2;
     const dialogY = y + this.dialogBoxOffsetY * textLines.length;
 
     CONTEXT.fillStyle = `rgba(0, 0, 0, ${this.dialogOpacity})`;
-    CONTEXT.fillRect(dialogX, dialogY, currentBoxWidth, dialogBoxHeight);
+    CONTEXT.fillRect(dialogX, dialogY, dialogBoxWidth, dialogBoxHeight);
 
     CONTEXT.fillStyle = "white";
     CONTEXT.font = `${this.fontSize}px Arial`;
@@ -75,9 +93,10 @@ class Dialog {
     });
   }
 
-  calculateBoxWidth(textLines) {
+  getDialogBoxWidth(textLines) {
     let textWidth = 0;
 
+    // getBreakLines() already calculated the max width for dialog box
     for (const line of textLines) {
       const lineWidth = CONTEXT.measureText(line).width;
       textWidth = Math.max(textWidth, lineWidth);

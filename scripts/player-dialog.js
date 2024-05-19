@@ -1,7 +1,10 @@
 class PlayerDialog extends Dialog {
   constructor() {
     super();
-    this.dialogLines = new Map([["init", "Where am I?"]]);
+    this.dialogLines = new Map([
+      ["init", "Where am I?"],
+      ["resume", "Oh, there's my resume!"],
+    ]);
     this.init = false;
   }
 

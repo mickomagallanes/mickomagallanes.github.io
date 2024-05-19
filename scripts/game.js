@@ -40,11 +40,9 @@ class Game {
 
       // track player's position, pass it to pan (if canvas is too large, allow pan camera)
       // panning will be based on the player's position, with a huge offset radius
-      this.panning.startPan(this.player, this.keyboard);
       this.player.trackMovement(this.keyboard);
-      this.map.drawBottomTrees();
-      this.map.drawFog();
-      this.map.drawReveal(this.player.x, this.player.y);
+      this.panning.startPan(this.player, this.keyboard);
+      this.map.drawMapMisc(this.player.x, this.player.y);
     } else {
       this.drawLoading();
     }

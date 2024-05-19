@@ -19,9 +19,8 @@ class CanvasMap {
 
   drawBackground = (x = 0, y = 0) => {
     CONTEXT.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    if (this.isImageLoaded) {
-      CONTEXT.drawImage(this.image, x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
-    }
+
+    CONTEXT.drawImage(this.image, x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
   };
 
   drawFog = () => {
@@ -65,15 +64,19 @@ class CanvasMap {
   };
 
   drawBottomTrees = () => {
-    if (this.isImageLoaded) {
-      CONTEXT.drawImage(
-        this.bottomTrees,
-        0,
-        CANVAS_HEIGHT - BOTTOM_TREES_HEIGHT,
-        CANVAS_WIDTH,
-        BOTTOM_TREES_HEIGHT
-      );
-    }
+    CONTEXT.drawImage(
+      this.bottomTrees,
+      0,
+      CANVAS_HEIGHT - BOTTOM_TREES_HEIGHT,
+      CANVAS_WIDTH,
+      BOTTOM_TREES_HEIGHT
+    );
+  };
+
+  drawMapMisc = (playerX, playerY) => {
+    this.drawBottomTrees();
+    this.drawFog();
+    this.drawReveal(playerX, playerY);
   };
 
   isWithinBounds = (x, y) => {

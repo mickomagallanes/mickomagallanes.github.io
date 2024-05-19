@@ -87,6 +87,7 @@ class Keyboard {
         this.keys[UP] = deltaY < 0 && significantY;
         this.keys[DOWN] = deltaY > 0 && significantY;
 
+        // to prevent stopping when going back to original touch pos
         if (this.touchCounter === 10) {
           this.prevTouchX = touchX;
           this.prevTouchY = touchY;
