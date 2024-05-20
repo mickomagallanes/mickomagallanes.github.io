@@ -4,10 +4,17 @@ class Game {
     this.panning = new Panning();
     this.keyboard = new Keyboard();
     this.player = new Player(this.map);
+    this.resume = new Resume();
   }
 
   init = () => {
     this.animate();
+  };
+
+  trackRemoveInstructions = () => {
+    if (this.keyboard.hasMoved && document.getElementById("overlay")) {
+      document.getElementById("overlay").remove();
+    }
   };
 
   drawLoading = () => {
@@ -37,16 +44,24 @@ class Game {
     if (this.map.getIsImageLoaded()) {
       this.keyboard.listenForEvents();
       this.map.drawBackground();
-
+      this.resume.drawResume();
       // track player's position, pass it to pan (if canvas is too large, allow pan camera)
       // panning will be based on the player's position, with a huge offset radius
       this.player.trackMovement(this.keyboard);
       this.panning.startPan(this.player, this.keyboard);
       this.map.drawMapMisc(this.player.x, this.player.y);
+      this.trackRemoveInstructions();
+      this.checkCollision();
     } else {
       this.drawLoading();
     }
 
     requestAnimationFrame(this.animate);
+  };
+
+  checkCollision = () => {
+    if (this.player.playerHitbox.checkCollision(this.resume.hitbox)) {
+      this.resume.triggerDownload();
+    }
   };
 }

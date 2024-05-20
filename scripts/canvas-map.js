@@ -2,8 +2,8 @@ class CanvasMap {
   constructor() {
     this.minBorderX = 10;
     this.minBorderY = -40;
-    this.maxBorderX = CANVAS_WIDTH - SPRITE_WIDTH;
-    this.maxBorderY = CANVAS_HEIGHT - SPRITE_HEIGHT;
+    this.maxBorderX = CANVAS_WIDTH - PLAYER_WIDTH;
+    this.maxBorderY = CANVAS_HEIGHT - PLAYER_HEIGHT;
     this.isImageLoaded = false;
 
     this.image = loadImage("assets/img/background.png", () => {
@@ -23,19 +23,10 @@ class CanvasMap {
     CONTEXT.drawImage(this.image, x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
   };
 
-  drawFog = () => {
-    // Set fill style for the fog
-    FOG_CONTEXT.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    FOG_CONTEXT.fillStyle = "rgba(0, 0, 0)";
-
-    // Fill the fog canvas with the fog color
-    FOG_CONTEXT.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  };
-
-  drawReveal = (playerX, playerY) => {
+  drawFog = (playerX, playerY) => {
     // Define the center and radius of the reveal circle
-    const centerX = playerX + SPRITE_WIDTH / 2;
-    const centerY = playerY + SPRITE_HEIGHT / 2;
+    const centerX = playerX + PLAYER_WIDTH / 2;
+    const centerY = playerY + PLAYER_HEIGHT / 2;
     const radius = 300;
     const centerRadius = 35;
 
@@ -75,8 +66,7 @@ class CanvasMap {
 
   drawMapMisc = (playerX, playerY) => {
     this.drawBottomTrees();
-    this.drawFog();
-    this.drawReveal(playerX, playerY);
+    this.drawFog(playerX, playerY);
   };
 
   isWithinBounds = (x, y) => {

@@ -1,7 +1,7 @@
 class PlayerSprite {
   constructor() {
-    this.spriteWidth = SPRITE_WIDTH;
-    this.spriteHeight = SPRITE_HEIGHT;
+    this.spriteWidth = PLAYER_WIDTH;
+    this.spriteHeight = PLAYER_HEIGHT;
     this.animationFrames = 8;
     this.animationFrameCounter = 0;
     this.isImageLoaded = false;

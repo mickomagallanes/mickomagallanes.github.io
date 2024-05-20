@@ -20,6 +20,7 @@ class Keyboard {
     this.prevTouchX = null;
     this.prevTouchY = null;
     this.touchCounter = 0;
+    this.hasMoved = false;
   }
 
   listenForEvents = () => {
@@ -37,11 +38,17 @@ class Keyboard {
     this.keys = { ...initKeys };
   };
 
+  setHasMoved = () => {
+    if (!this.hasMoved) {
+      this.hasMoved = true;
+    }
+  };
+
   onKeyEvent = (event) => {
     const keyCode = event.keyCode;
     if (keyCode in this.keys) {
       event.preventDefault();
-
+      this.setHasMoved();
       if (event.type === "keydown") {
         this.keys[keyCode] = true;
       } else if (event.type === "keyup") {
@@ -52,6 +59,7 @@ class Keyboard {
 
   onTouchStart = (event) => {
     event.preventDefault();
+    this.setHasMoved();
     const touch = event.touches[0];
     this.prevTouchX = touch.clientX;
     this.prevTouchY = touch.clientY;

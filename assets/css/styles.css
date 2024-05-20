@@ -16,8 +16,28 @@ canvas {
            
 }
 
-  #game {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+#game {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+#overlay h2 {
+  margin-bottom: 10px;
+}
+
+#overlay p {
+  margin: 5px 0;
+}

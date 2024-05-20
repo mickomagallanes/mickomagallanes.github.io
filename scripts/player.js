@@ -8,6 +8,7 @@ class Player {
     this.lastDirection = "down";
     this.playerSprite = new PlayerSprite();
     this.playerDialog = new PlayerDialog();
+    this.playerHitbox = new PlayerHitbox();
     this.previousX = 0;
     this.previousY = 0;
 
@@ -57,6 +58,7 @@ class Player {
     this.playerSprite.calculateNextSprite(isIdle);
 
     this.playerDialog.trackDialog(this.x, this.y);
+    this.playerHitbox.setHitbox(this.x, this.y);
   };
 
   trackMovement = (keyboard) => {

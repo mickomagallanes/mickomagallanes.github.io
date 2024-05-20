@@ -1,7 +1,8 @@
 class Dialog {
   constructor() {
     this.currentDialog = null;
-
+    this.x;
+    this.y;
     this.dialogBoxWidth = 200;
     this.dialogBoxHeight = 60;
     this.dialogBoxOffsetX = -78; // Offset from character's position
@@ -37,9 +38,9 @@ class Dialog {
 
   /**
    * splits the current dialog and splice it based on dialog length
-   * @returns [] array of spliced words based on dialog length
+   * @returns [] array of spliced line of words based on dialog length
    */
-  getBreakLines() {
+  getBrokenLines() {
     const textLines = [];
     const words = this.currentDialog.split(" ");
     let currentLine = "";
@@ -70,13 +71,13 @@ class Dialog {
    * @param {*} y of player/npc
    */
   displayDialog(x, y) {
-    const textLines = this.getBreakLines();
+    const textLines = this.getBrokenLines();
     const dialogBoxHeight =
       textLines.length * this.lineHeight + this.dialogPadding;
 
     const dialogBoxWidth = this.getDialogBoxWidth(textLines);
 
-    const dialogX = x + SPRITE_WIDTH / 2 - dialogBoxWidth / 2;
+    const dialogX = x + PLAYER_WIDTH / 2 - dialogBoxWidth / 2;
     const dialogY = y + this.dialogBoxOffsetY * textLines.length;
 
     CONTEXT.fillStyle = `rgba(0, 0, 0, ${this.dialogOpacity})`;
@@ -96,7 +97,7 @@ class Dialog {
   getDialogBoxWidth(textLines) {
     let textWidth = 0;
 
-    // getBreakLines() already calculated the max width for dialog box
+    // getBrokenLines() already calculated the max width for dialog box
     for (const line of textLines) {
       const lineWidth = CONTEXT.measureText(line).width;
       textWidth = Math.max(textWidth, lineWidth);

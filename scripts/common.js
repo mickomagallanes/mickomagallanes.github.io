@@ -9,13 +9,16 @@ const LEFT_A = 65;
 const RIGHT_D = 68;
 const UP_W = 87;
 const DOWN_S = 83;
-const SPRITE_WIDTH = 48;
-const SPRITE_HEIGHT = 96;
+const PLAYER_WIDTH = 48;
+const PLAYER_HEIGHT = 96;
 
 const CANVAS = document.getElementById("game");
 const CONTEXT = CANVAS.getContext("2d");
 const FOG_CANVAS = document.getElementById("fogCanvas");
 const FOG_CONTEXT = FOG_CANVAS.getContext("2d");
+
+const RESUME_WIDTH = 32;
+const RESUME_HEIGHT = 34;
 
 const hashArray = (arr) => {
   return arr.sort().join("|");
