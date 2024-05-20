@@ -6,6 +6,7 @@ class Hitbox {
     this.height = height;
   }
 
+  //test
   checkCollision = (otherHitbox) => {
     return (
       this.minX < otherHitbox.minX + otherHitbox.width &&
