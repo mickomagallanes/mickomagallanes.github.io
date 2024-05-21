@@ -2,7 +2,7 @@ class CanvasMap {
   constructor() {
     this.minBorderX = 10;
     this.minBorderY = -40;
-    this.maxBorderX = CANVAS_WIDTH - PLAYER_WIDTH;
+    this.maxBorderX = CANVAS_WIDTH - (PLAYER_WIDTH + 10);
     this.maxBorderY = CANVAS_HEIGHT - PLAYER_HEIGHT;
     this.isImageLoaded = false;
 

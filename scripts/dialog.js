@@ -78,7 +78,12 @@ class Dialog {
     const dialogBoxWidth = this.getDialogBoxWidth(textLines);
 
     const dialogX = x + PLAYER_WIDTH / 2 - dialogBoxWidth / 2;
-    const dialogY = y + this.dialogBoxOffsetY * textLines.length + 10;
+    let dialogY = y + this.dialogBoxOffsetY * textLines.length + 10;
+
+    // show dialog to bottom of character if character's position is on the very top
+    if (y < PLAYER_HEIGHT / 2) {
+      dialogY += PLAYER_HEIGHT + 5;
+    }
 
     CONTEXT.fillStyle = `rgba(0, 0, 0, ${this.dialogOpacity})`;
     CONTEXT.fillRect(dialogX, dialogY, dialogBoxWidth, dialogBoxHeight);
