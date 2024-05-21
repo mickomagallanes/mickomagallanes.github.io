@@ -1,9 +1,9 @@
 class Game {
   constructor() {
     this.map = new CanvasMap();
-    this.panning = new Panning();
     this.keyboard = new Keyboard();
-    this.player = new Player(this.map);
+    this.player = new Player(this.map, this.keyboard);
+    this.panning = new Panning(this.player, this.keyboard);
     this.resume = new Resume();
   }
 
@@ -85,8 +85,8 @@ class Game {
 
       // track player's position, pass it to pan (if canvas is too large, allow pan camera)
       // panning will be based on the player's position, with a huge offset radius
-      this.player.trackMovement(this.keyboard);
-      this.panning.startPan(this.player, this.keyboard);
+      this.player.trackMovement();
+      this.panning.startPan();
       this.map.drawMapMisc(this.player.x, this.player.y);
       this.trackInstructions();
       this.checkCollision();

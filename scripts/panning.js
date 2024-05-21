@@ -1,6 +1,8 @@
 class Panning extends CanvasMap {
-  constructor() {
+  constructor(player, keyboard) {
     super();
+    this.player = player;
+    this.keyboard = keyboard;
     this.canvasPositionX = 0;
     this.canvasPositionY = 0;
     this.speed = 4;
@@ -30,7 +32,7 @@ class Panning extends CanvasMap {
     };
   }
 
-  startPan = (player, keyboard) => {
+  startPan = () => {
     let newX = this.canvasPositionX;
     let newY = this.canvasPositionY;
 
@@ -42,32 +44,34 @@ class Panning extends CanvasMap {
     const screenCenterY = visibleScreenHeight / 2;
 
     const playerInCenterX =
-      player.x >= screenCenterX && player.x <= CANVAS_WIDTH - screenCenterX;
+      this.player.x >= screenCenterX &&
+      this.player.x <= CANVAS_WIDTH - screenCenterX;
     const playerInCenterY =
-      player.y >= screenCenterY && player.y <= CANVAS_HEIGHT - screenCenterY;
+      this.player.y >= screenCenterY &&
+      this.player.y <= CANVAS_HEIGHT - screenCenterY;
 
-    const keysPressed = keyboard.getAllDown().sort();
+    const keysPressed = this.keyboard.getAllDown().sort();
     const activeDirection = DIRECTION_KEYS.get(hashArray(keysPressed));
 
-    const hasXChanged = player.previousX !== player.x;
-    const hasYChanged = player.previousY !== player.y;
+    const hasXChanged = this.player.previousX !== this.player.x;
+    const hasYChanged = this.player.previousY !== this.player.y;
 
     if (activeDirection) {
       // if player in is center, and player changes its position, then proceed
       if (playerInCenterX && hasXChanged) {
         newX = this.directionFormula[activeDirection].x(newX);
-      } else if (player.x < screenCenterX && hasXChanged) {
+      } else if (this.player.x < screenCenterX && hasXChanged) {
         newX = 0;
-      } else if (player.x > CANVAS_HEIGHT - screenCenterX && hasXChanged) {
+      } else if (this.player.x > CANVAS_HEIGHT - screenCenterX && hasXChanged) {
         newX = visibleScreenWidth - CANVAS_WIDTH;
       }
 
       // if player in is center, and player changes its position, then proceed
-      if (playerInCenterY && player.previousY !== player.y) {
+      if (playerInCenterY && this.player.previousY !== this.player.y) {
         newY = this.directionFormula[activeDirection].y(newY);
-      } else if (player.y < screenCenterY && hasYChanged) {
+      } else if (this.player.y < screenCenterY && hasYChanged) {
         newY = 0;
-      } else if (player.y > CANVAS_HEIGHT - screenCenterY && hasYChanged) {
+      } else if (this.player.y > CANVAS_HEIGHT - screenCenterY && hasYChanged) {
         newY = visibleScreenHeight - CANVAS_HEIGHT;
       }
     }

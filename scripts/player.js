@@ -1,6 +1,7 @@
 class Player {
-  constructor(map) {
+  constructor(map, keyboard) {
     this.map = map;
+    this.keyboard = keyboard;
     this.x = 140;
     this.y = 140;
     this.speed = 4;
@@ -61,8 +62,8 @@ class Player {
     this.playerHitbox.setHitbox(this.x, this.y);
   };
 
-  trackMovement = (keyboard) => {
-    const keysPressed = keyboard.getAllDown().sort();
+  trackMovement = () => {
+    const keysPressed = this.keyboard.getAllDown().sort();
     const activeDirection = DIRECTION_KEYS.get(hashArray(keysPressed));
     this.previousX = this.x;
     this.previousY = this.y;
