@@ -7,7 +7,7 @@ class PlayerDialog extends Dialog {
         [
           "Where am I?",
           "This place looks oblivious",
-          "*dizzy* Can't remember anythi... wait, who brought me here!?",
+          "*dizzy* Who brought me here!?",
           "Ang dilim naman dito",
           "Saan 'to? Gusto ko na umuwi",
         ],

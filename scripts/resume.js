@@ -20,10 +20,14 @@ class Resume {
       RESUME_WIDTH,
       RESUME_HEIGHT
     );
+
+    this.shine = new Shine(RESUME_WIDTH, RESUME_HEIGHT);
   }
 
   drawResume = () => {
     if (!this.deathAnimation.isCoordInit && !this.deathAnimation.isDead) {
+      this.shine.drawShine(this.x, this.y);
+
       CONTEXT.drawImage(
         this.image,
         this.x,
@@ -32,7 +36,8 @@ class Resume {
         RESUME_HEIGHT
       );
       this.hitbox.setCoord(this.x, this.y);
-      this.hitbox.drawHitbox();
+
+      //   this.hitbox.drawHitbox(); // for dev purposes
     } else {
       this.deathAnimation.animateDeath(this.x, this.y);
     }

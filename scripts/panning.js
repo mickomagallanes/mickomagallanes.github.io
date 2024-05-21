@@ -31,41 +31,52 @@ class Panning extends CanvasMap {
   }
 
   startPan = (player, keyboard) => {
-    const screenXMax = getVisibleCanvasWidth();
-    const screenYMax = getVisibleCanvasHeight();
-    const radiusX = screenXMax * 0.5;
-    const radiusY = screenYMax * 0.5;
     let newX = this.canvasPositionX;
     let newY = this.canvasPositionY;
 
+    // Boundary checks to ensure the canvas position doesn't go out of bounds
+    const visibleScreenWidth = getVisibleCanvasWidth();
+    const visibleScreenHeight = getVisibleCanvasHeight();
+
+    const screenCenterX = visibleScreenWidth / 2;
+    const screenCenterY = visibleScreenHeight / 2;
+
     const playerInCenterX =
-      player.x + radiusX >= screenXMax && player.x + radiusX <= CANVAS_WIDTH;
+      player.x >= screenCenterX && player.x <= CANVAS_WIDTH - screenCenterX;
     const playerInCenterY =
-      player.y + radiusY >= screenYMax && player.y + radiusY <= CANVAS_HEIGHT;
+      player.y >= screenCenterY && player.y <= CANVAS_HEIGHT - screenCenterY;
 
     const keysPressed = keyboard.getAllDown().sort();
     const activeDirection = DIRECTION_KEYS.get(hashArray(keysPressed));
 
+    const hasXChanged = player.previousX !== player.x;
+    const hasYChanged = player.previousY !== player.y;
+
     if (activeDirection) {
       // if player in is center, and player changes its position, then proceed
-      if (playerInCenterX && player.previousX !== player.x) {
+      if (playerInCenterX && hasXChanged) {
         newX = this.directionFormula[activeDirection].x(newX);
+      } else if (player.x < screenCenterX && hasXChanged) {
+        newX = 0;
+      } else if (player.x > CANVAS_HEIGHT - screenCenterX && hasXChanged) {
+        newX = visibleScreenWidth - CANVAS_WIDTH;
       }
 
       // if player in is center, and player changes its position, then proceed
       if (playerInCenterY && player.previousY !== player.y) {
         newY = this.directionFormula[activeDirection].y(newY);
+      } else if (player.y < screenCenterY && hasYChanged) {
+        newY = 0;
+      } else if (player.y > CANVAS_HEIGHT - screenCenterY && hasYChanged) {
+        newY = visibleScreenHeight - CANVAS_HEIGHT;
       }
     }
 
-    // if new panning position exceeds canvas, then don't proceed
-    if (Math.abs(newX) + screenXMax >= CANVAS_WIDTH || newX > 0) {
-      newX = this.canvasPositionX;
-    }
+    // Ensure newX stays within the allowed range
+    newX = Math.min(0, Math.max(newX, visibleScreenWidth - CANVAS_WIDTH));
 
-    if (Math.abs(newY) + screenYMax >= CANVAS_HEIGHT || newY > 0) {
-      newY = this.canvasPositionY;
-    }
+    // Ensure newY stays within the allowed range
+    newY = Math.min(0, Math.max(newY, visibleScreenHeight - CANVAS_HEIGHT));
 
     // Update canvas transform
     CANVAS.style.transform = `translate(${newX}px, ${newY}px)`;

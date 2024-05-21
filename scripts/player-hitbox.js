@@ -5,6 +5,6 @@ class PlayerHitbox extends Hitbox {
 
   setHitbox = (x, y) => {
     this.setCoord(x + 15, y + PLAYER_HEIGHT - 25);
-    this.drawHitbox();
+    // this.drawHitbox(); // for dev purposes
   };
 }

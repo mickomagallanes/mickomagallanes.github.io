@@ -11,9 +11,46 @@ class Game {
     this.animate();
   };
 
-  trackRemoveInstructions = () => {
-    if (this.keyboard.hasMoved && document.getElementById("overlay")) {
-      document.getElementById("overlay").remove();
+  adjustInstPos = (overlay) => {
+    const screenWidth = getVisibleCanvasWidth();
+    const screenHeight = getVisibleCanvasHeight();
+
+    const centerX =
+      screenWidth > CANVAS_WIDTH ? CANVAS_WIDTH / 2 : screenWidth / 2;
+
+    const centerY =
+      screenHeight > CANVAS_HEIGHT ? CANVAS_HEIGHT / 2 : screenHeight / 2;
+
+    overlay.style.position = "absolute";
+    overlay.style.left = `${centerX}px`;
+    overlay.style.top = `${centerY}px`;
+    overlay.style.transform = "translate(-50%, -50%)";
+  };
+
+  trackInstructions = () => {
+    const overlay = document.getElementById("overlay");
+
+    if (overlay) {
+      if (this.keyboard.hasMoved) {
+        overlay.remove();
+      } else {
+        this.adjustInstPos(overlay);
+
+        const instructions = document.getElementById("instruction");
+        overlay.style.display = "block";
+        instructions.textContent = "Use WASD or arrow keys to move ";
+
+        // Display different instructions for desktop and mobile
+        if (
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          )
+        ) {
+          instructions.textContent = "Touch and drag to move";
+        }
+
+        overlay.appendChild(instructions);
+      }
     }
   };
 
@@ -51,7 +88,7 @@ class Game {
       this.player.trackMovement(this.keyboard);
       this.panning.startPan(this.player, this.keyboard);
       this.map.drawMapMisc(this.player.x, this.player.y);
-      this.trackRemoveInstructions();
+      this.trackInstructions();
       this.checkCollision();
     } else {
       this.drawLoading();
@@ -74,7 +111,7 @@ class Game {
       this.player.playerHitbox.checkCollision(this.resume.hitbox)
     ) {
       this.resume.triggerDownload();
-      this.player.playerDialog.triggerResume();
+      this.player.playerDialog.triggerResume;
     }
   };
 }

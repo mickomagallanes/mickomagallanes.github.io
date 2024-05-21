@@ -73,12 +73,12 @@ class Dialog {
   displayDialog(x, y) {
     const textLines = this.getBrokenLines();
     const dialogBoxHeight =
-      textLines.length * this.lineHeight + this.dialogPadding;
+      textLines.length * this.lineHeight + this.dialogPadding / 2;
 
     const dialogBoxWidth = this.getDialogBoxWidth(textLines);
 
     const dialogX = x + PLAYER_WIDTH / 2 - dialogBoxWidth / 2;
-    const dialogY = y + this.dialogBoxOffsetY * textLines.length;
+    const dialogY = y + this.dialogBoxOffsetY * textLines.length + 10;
 
     CONTEXT.fillStyle = `rgba(0, 0, 0, ${this.dialogOpacity})`;
     CONTEXT.fillRect(dialogX, dialogY, dialogBoxWidth, dialogBoxHeight);
