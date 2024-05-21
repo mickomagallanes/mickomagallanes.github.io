@@ -44,7 +44,8 @@ class Game {
     if (this.map.getIsImageLoaded()) {
       this.keyboard.listenForEvents();
       this.map.drawBackground();
-      this.resume.drawResume();
+      this.checkDeath("resume", () => this.resume.drawResume());
+
       // track player's position, pass it to pan (if canvas is too large, allow pan camera)
       // panning will be based on the player's position, with a huge offset radius
       this.player.trackMovement(this.keyboard);
@@ -59,8 +60,19 @@ class Game {
     requestAnimationFrame(this.animate);
   };
 
+  checkDeath = (objClass, callback) => {
+    if (this[objClass] && !this[objClass].deathAnimation.isDead) {
+      callback();
+    } else {
+      this[objClass] = null;
+    }
+  };
+
   checkCollision = () => {
-    if (this.player.playerHitbox.checkCollision(this.resume.hitbox)) {
+    if (
+      this.resume &&
+      this.player.playerHitbox.checkCollision(this.resume.hitbox)
+    ) {
       this.resume.triggerDownload();
     }
   };

@@ -1,7 +1,7 @@
 class Hitbox {
   constructor(width, height) {
-    this.minX = 0;
-    this.minY = 0;
+    this.minX = undefined;
+    this.minY = undefined;
     this.width = width;
     this.height = height;
   }
