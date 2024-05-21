@@ -74,6 +74,7 @@ class Game {
       this.player.playerHitbox.checkCollision(this.resume.hitbox)
     ) {
       this.resume.triggerDownload();
+      this.player.playerDialog.triggerResume();
     }
   };
 }

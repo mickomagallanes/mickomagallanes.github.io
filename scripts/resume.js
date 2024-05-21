@@ -4,8 +4,8 @@ class Resume {
     this.spawnMaxX = 1800;
     this.spawnMinY = 640;
     this.spawnMaxY = CANVAS_HEIGHT - BOTTOM_TREES_HEIGHT;
-    this.x = this.randomizePos(this.spawnMinX, this.spawnMaxX);
-    this.y = this.randomizePos(this.spawnMinY, this.spawnMaxY);
+    this.x = randomizeNumber(this.spawnMinX, this.spawnMaxX);
+    this.y = randomizeNumber(this.spawnMinY, this.spawnMaxY);
 
     this.isImageLoaded = false;
 
@@ -21,10 +21,6 @@ class Resume {
       RESUME_HEIGHT
     );
   }
-
-  randomizePos = (min, max) => {
-    return Math.random() * (max - min) + min;
-  };
 
   drawResume = () => {
     if (!this.deathAnimation.isCoordInit && !this.deathAnimation.isDead) {

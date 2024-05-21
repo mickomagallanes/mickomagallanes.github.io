@@ -101,3 +101,7 @@ function createDirectionsDiag(y) {
     { x: 5, y: y },
   ];
 }
+
+function randomizeNumber(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
