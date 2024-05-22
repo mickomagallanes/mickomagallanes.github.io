@@ -108,10 +108,11 @@ class Game {
   checkCollision = () => {
     if (
       this.resume &&
+      !this.resume.deathAnimation.isCoordInit &&
       this.player.playerHitbox.checkCollision(this.resume.hitbox)
     ) {
       this.resume.triggerDownload();
-      this.player.playerDialog.triggerResume;
+      this.player.playerDialog.triggerResume();
     }
   };
 }

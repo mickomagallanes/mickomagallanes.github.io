@@ -34,13 +34,11 @@ class PlayerDialog extends Dialog {
     this.animateDialog(x, y);
   };
 
-  triggerResume = (x, y) => {
+  triggerResume = () => {
     if (!this.resume) {
       this.setDialog(this.randomizedDialog("resume"));
       this.resume = true;
     }
-
-    this.animateDialog(x, y);
   };
 
   randomizedDialog = (key) => {
