@@ -20,6 +20,9 @@ const FOG_CONTEXT = FOG_CANVAS.getContext("2d");
 const RESUME_WIDTH = 32;
 const RESUME_HEIGHT = 34;
 
+const BOOK_WIDTH = 33;
+const BOOK_HEIGHT = 33;
+
 const hashArray = (arr) => {
   return arr.sort().join("|");
 };
@@ -104,4 +107,12 @@ function createDirectionsDiag(y) {
 
 function randomizeNumber(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
+}
+
+function addEventListenerWithReplacement(element, event, handler) {
+  // First, remove any existing event listener of the same type
+  element.removeEventListener(event, handler);
+
+  // Then, add the new event listener
+  element.addEventListener(event, handler);
 }

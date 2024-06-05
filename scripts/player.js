@@ -12,6 +12,7 @@ class Player {
     this.playerHitbox = new PlayerHitbox();
     this.previousX = 0;
     this.previousY = 0;
+    this.shouldStop = false;
 
     this.directionFormula = {
       right: { x: (num) => num + this.speed, y: (num) => num },
@@ -68,12 +69,13 @@ class Player {
     this.previousX = this.x;
     this.previousY = this.y;
 
-    if (activeDirection !== undefined) {
+    if (activeDirection !== undefined && !this.shouldStop) {
       this.movePlayer(activeDirection);
 
       this.animatePlayer(false, activeDirection);
       this.lastDirection = activeDirection;
     } else {
+      console.log("stop");
       this.animatePlayer(true);
     }
   };

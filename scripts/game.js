@@ -5,6 +5,13 @@ class Game {
     this.player = new Player(this.map, this.keyboard);
     this.panning = new Panning(this.player, this.keyboard);
     this.resume = new Resume();
+    this.bookWork = new Book(
+      1400,
+      100,
+      [{ left: "dasddsa", right: "dasd22222222222" }],
+      "assets/img/book-work.png",
+      "Work Projects"
+    );
   }
 
   init = () => {
@@ -56,9 +63,11 @@ class Game {
 
   drawLoading = () => {
     CONTEXT.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    // Draw dialogue text
     CONTEXT.fillStyle = "black";
-    CONTEXT.font = `14px Arial`;
+    CONTEXT.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    // Draw dialogue text
+    CONTEXT.fillStyle = "white";
+    CONTEXT.font = `16px Arial`;
     CONTEXT.textAlign = "left";
 
     const loadingText = "Please wait, resources are still loading";
@@ -70,11 +79,7 @@ class Game {
 
     const centerX = screenXMax / 2 - lineWidth / 2;
     const centerY = screenYMax / 2;
-    CONTEXT.fillText(
-      "Please wait, resources are still loading",
-      centerX,
-      centerY
-    );
+    CONTEXT.fillText(loadingText, centerX, centerY);
   };
 
   animate = () => {
@@ -82,7 +87,7 @@ class Game {
       this.keyboard.listenForEvents();
       this.map.drawBackground();
       this.checkDeath("resume", () => this.resume.drawResume());
-
+      this.bookWork.drawBook();
       // track player's position, pass it to pan (if canvas is too large, allow pan camera)
       // panning will be based on the player's position, with a huge offset radius
       this.player.trackMovement();
@@ -113,6 +118,20 @@ class Game {
     ) {
       this.resume.triggerDownload();
       this.player.playerDialog.triggerResume();
+    }
+
+    if (
+      this.player.playerHitbox.checkCollision(this.bookWork.hitbox) &&
+      this.bookWork.bookModal.isInRange === false
+    ) {
+      this.bookWork.triggerModal();
+      this.player.shouldStop = false;
+    } else if (!this.player.playerHitbox.checkCollision(this.bookWork.hitbox)) {
+      this.bookWork.bookModal.isInRange = false;
+    } else if (this.bookWork.bookModal.isShown) {
+      this.player.shouldStop = true;
+    } else if (!this.bookWork.bookModal.isShown) {
+      this.player.shouldStop = false;
     }
   };
 }

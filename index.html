@@ -14,6 +14,29 @@
         <h2>Game Instructions</h2>
         <p id="instruction"></p>
     </div>
+
+    <div id="bookModal" class="modal">
+        <div class="gallery-container">
+            <p id="modalTitle"></p>
+            <span id="closeModal" class="close-btn">&times;</span>
+            <div id="gallery" class="gallery pixel-art">
+                <div class="row">
+                    <p id="prev" class="prev">&laquo;</p>
+                    <div id="leftGallery">
+                        <p>Left Gallery Content</p>
+                    </div>
+                </div>
+                <div class="row-reverse">
+                    <p id="next" class="next">&raquo;</p>
+                    <div id="rightGallery">
+                        <p>Right Gallery Content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="scripts/common.js"></script>
     <script src="scripts/shine.js"></script>
     <script src="scripts/death-animation.js"></script>
@@ -27,6 +50,8 @@
     <script src="scripts/keyboard.js"></script>
     <script src="scripts/canvas-map.js"></script>
     <script src="scripts/panning.js"></script>
+    <script src="scripts/book-modal.js"></script>
+    <script src="scripts/book.js"></script>
     <script src="scripts/game.js"></script>
     <script src="scripts/init.js"></script>
 </body>
