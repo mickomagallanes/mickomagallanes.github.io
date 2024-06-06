@@ -93,9 +93,11 @@ class Dialog {
     CONTEXT.textAlign = "left";
 
     let textY = dialogY + this.lineHeight;
-    textLines.forEach((line) => {
-      CONTEXT.fillText(line, dialogX + 10, textY);
-      textY += this.lineHeight;
+    document.fonts.load('10pt "Munro"').then(() => {
+      textLines.forEach((line) => {
+        CONTEXT.fillText(line, dialogX + 10, textY);
+        textY += this.lineHeight;
+      });
     });
   }
 

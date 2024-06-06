@@ -75,7 +75,6 @@ class Player {
       this.animatePlayer(false, activeDirection);
       this.lastDirection = activeDirection;
     } else {
-      console.log("stop");
       this.animatePlayer(true);
     }
   };

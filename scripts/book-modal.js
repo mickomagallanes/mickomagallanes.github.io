@@ -7,63 +7,17 @@ class BookModal {
     this.isShown = false;
   }
 
-  updatePages = () => {
-    const leftGallery = document.getElementById("leftGallery");
-    const rightGallery = document.getElementById("rightGallery");
-    const screenWidth = window.innerWidth;
-
-    if (screenWidth <= 640) {
-      const gallery = document.getElementById("gallery");
-
-      // On mobile, show all pages in a single column
-      let mergedContent = "";
-      this.pages.forEach((page) => {
-        mergedContent += `<div class="page">${page.left}</div>`;
-        mergedContent += `<div class="page">${page.right}</div>`;
-      });
-      gallery.innerHTML = mergedContent;
-    } else {
-      // On desktop, show left and right content separately
-      leftGallery.innerHTML = this.pages[this.currentIndex].left;
-      rightGallery.innerHTML = this.pages[this.currentIndex].right;
-      rightGallery.style.display = "block";
-    }
-  };
-
-  handleClose = () => {
-    document.getElementById("bookModal").style.display = "none";
-    this.isShown = false;
-  };
-
-  handlePrev = () => {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.updatePages();
-    }
-  };
-
-  handleNext = () => {
-    if (this.currentIndex < pages.length - 1) {
-      this.currentIndex++;
-      this.updatePages();
-    }
-  };
-
-  handleResize = () => {
-    this.updatePages();
-  };
-
-  showModal = () => {
-    this.isInRange = true;
-    this.isShown = true;
-
-    document.getElementById("bookModal").style.display = "flex";
-    document.getElementById("modalTitle").innerHTML = this.title;
-
+  initEventListeners() {
+    addEventListenerWithReplacement(window, "resize", this.handleResize);
     addEventListenerWithReplacement(
       document.getElementById("closeModal"),
       "click",
       this.handleClose
+    );
+    addEventListenerWithReplacement(
+      document.getElementById("closeModal"),
+      "touchstart",
+      this.handleTouchClose
     );
     addEventListenerWithReplacement(
       document.getElementById("prev"),
@@ -75,12 +29,90 @@ class BookModal {
       "click",
       this.handleNext
     );
-    addEventListenerWithReplacement(window, "resize", this.handleResize);
+  }
 
-    // Initialize pages
-    this.updatePages();
+  updatePagesFull() {
+    const leftGallery = document.getElementById("leftGallery");
+    const rightGallery = document.getElementById("rightGallery");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
 
-    // Update pages on window resize
-    window.addEventListener("resize", this.updatePages);
+    leftGallery.innerHTML = this.pages[this.currentIndex].left;
+    rightGallery.innerHTML = this.pages[this.currentIndex].right;
+
+    prev.style.display = this.currentIndex === 0 ? "none" : "flex";
+    next.style.display =
+      this.currentIndex >= this.pages.length - 1 ? "none" : "flex";
+  }
+
+  updatePagesMobile() {
+    const leftGallery = document.getElementById("leftGallery");
+    const rightGallery = document.getElementById("rightGallery");
+    leftGallery.innerHTML = "";
+    rightGallery.innerHTML = "";
+
+    let mergedElements = "";
+
+    this.pages.forEach((page, i) => {
+      if (i !== 0) {
+        mergedElements += `<span class="bump"></span>`;
+      }
+      mergedElements += page.left;
+      mergedElements += page.right;
+    });
+
+    leftGallery.innerHTML = mergedElements;
+    document.getElementById("prev").style.display = "none";
+    document.getElementById("next").style.display = "none";
+
+    // Ensure links are clickable on mobile
+    const links = leftGallery.querySelectorAll("a");
+    links.forEach((link) => {
+      link.addEventListener("touchstart", (event) => {
+        event.stopPropagation(); // Stop the touch event from propagating
+        window.open(link.href, "_blank");
+      });
+    });
+  }
+
+  handleClose = () => {
+    document.getElementById("bookModal").style.display = "none";
+    this.isShown = false;
+  };
+
+  handleTouchClose = () => {
+    this.handleClose();
+  };
+
+  handlePrev = () => {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.updatePagesFull();
+    }
+  };
+
+  handleNext = () => {
+    if (this.currentIndex < this.pages.length - 1) {
+      this.currentIndex++;
+      this.updatePagesFull();
+    }
+  };
+
+  handleResize = () => {
+    if (window.innerWidth < 640) {
+      this.updatePagesMobile();
+    } else {
+      this.updatePagesFull();
+    }
+  };
+
+  showModal = () => {
+    this.isInRange = true;
+    this.isShown = true;
+    document.getElementById("bookModal").style.display = "flex";
+    document.getElementById("modalTitle").innerHTML = this.title;
+    this.initEventListeners();
+
+    this.handleResize(); // Initialize pages
   };
 }
