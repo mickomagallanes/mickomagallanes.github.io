@@ -68,9 +68,25 @@ class BookModal {
     // Ensure links are clickable on mobile
     const links = leftGallery.querySelectorAll("a");
     links.forEach((link) => {
+      let startX, startY;
+
       link.addEventListener("touchstart", (event) => {
         event.stopPropagation(); // Stop the touch event from propagating
-        window.open(link.href, "_blank");
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+      });
+      link.addEventListener("touchend", (event) => {
+        const endX = event.changedTouches[0].clientX;
+        const endY = event.changedTouches[0].clientY;
+        const diffX = Math.abs(startX - endX);
+        const diffY = Math.abs(startY - endY);
+        if (diffX < 10 && diffY < 10) {
+          event.stopPropagation();
+          window.open(link.href, "_blank");
+        }
+      });
+      link.addEventListener("touchmove", (event) => {
+        event.preventDefault();
       });
     });
   }
