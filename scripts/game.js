@@ -8,45 +8,7 @@ class Game {
     this.bookWork = new Book(
       200,
       100,
-      [
-        {
-          left: `
-          <h3> Navix Health (Jan 2023 - May 2024) </h3>
-          <img src="assets/img/navix.png" alt="Navix Health" loading="lazy" />
-          <div> 
-            <span class="pill">React</span>
-            <span class="pill">Next.js 12</span>
-            <span class="pill">HTML</span>
-            <span class="pill">CSS</span>
-            <span class="pill">Javascript</span>
-            <span class="pill">Bootstrap</span>
-            <span class="pill">SWR</span>
-            <span class="pill">Zustand</span>
-          </div>
-          `,
-          right: `<p>Developed and maintained pages and components. Investigated bugs found in production. 
-          Refactored and applied coding principles to the existing old components. </p>
-          <a href="https://navixhealth.com/" target="_blank"><i class="fa-solid fa-link"></i> Navix Health</a>`,
-        },
-        {
-          left: `
-          <h3> Phoenix Super LPG (July 2022 - January 2023) </h3>
-          <img src="assets/img/phoenix.jpg" alt="Phoenix Super LPG" loading="lazy" />
-          <div>
-            <span class="pill">Angular</span>
-            <span class="pill">HTML</span>
-            <span class="pill">CSS</span>
-            <span class="pill">Javascript</span>
-            <span class="pill">Node.js</span>
-            <span class="pill">Express</span>
-            <span class="pill">Laravel</span>
-          </div>
-          `,
-          right: `<p>Added features to the legacy administrator panel with Angular. 
-          Converted the backend made in Node.js Express
-          to Laravel. Created APIs for the mobile app with Laravel</p>`,
-        },
-      ],
+      WORK_EXP,
       "assets/img/book-work.png",
       "Work Projects"
     );

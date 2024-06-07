@@ -239,3 +239,7 @@ h2, h3 {
 .bump {
   margin-top: 40px;
 }
+
+.mt-1 {
+  margin-top: 5px;
+}

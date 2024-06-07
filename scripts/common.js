@@ -47,6 +47,109 @@ const DIRECTION_KEYS = new Map([
   [hashArray([UP_W, LEFT_A]), "upLeft"],
 ]);
 
+const WORK_EXP = [
+  {
+    left: `
+    <h3> Navix Health (Jan 2023 - May 2024) </h3>
+    <img src="assets/img/navix.png" alt="Navix Health" loading="lazy" />
+    <div> 
+      <span class="pill">React</span>
+      <span class="pill">Next.js 12</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Bootstrap</span>
+      <span class="pill">SWR</span>
+      <span class="pill">Zustand</span>
+    </div>
+    `,
+    right: `<p><b>Frontend:</b> <br /> Developed and maintained pages and components. Investigated bugs found in production. 
+    Refactored and applied coding principles to the existing old components. </p>
+    <a href="https://navixhealth.com/" target="_blank"><i class="fa-solid fa-link"></i> Navix Health</a>`,
+  },
+  {
+    left: `
+    <h3> Phoenix Super LPG (Jul 2022 - Jan 2023) </h3>
+    <img src="assets/img/phoenix.jpg" alt="Phoenix Super LPG" loading="lazy" />
+    <div>
+      <span class="pill">Angular</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Node.js</span>
+      <span class="pill">Express</span>
+      <span class="pill">Laravel</span>
+      <span class="pill">MySQL</span>
+    </div>
+    `,
+    right: `<p><b>Frontend: </b> <br /> Added features to the legacy Administrator Panel.
+    <br /><br /> <b>Backend:</b> <br />
+    Converted the backend made in Node.js Express
+    to Laravel. Created APIs for the mobile app</p>`,
+  },
+  {
+    left: `
+    <h3> Assetmart (Oct 2021 - Aug 2022) </h3>
+    <img src="assets/img/assetmart.png" alt="Assetmart" loading="lazy" />
+    <div>
+      <span class="pill">React</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Typescript</span>
+      <span class="pill">Node.js</span>
+      <span class="pill">AdonisJS</span>
+      <span class="pill">Ant Design</span>
+      <span class="pill">MySQL</span>
+    </div>
+    `,
+    right: `<p><b>Frontend: </b> <br />Developed and maintained the Administrator Panel for Assetmart. 
+   <br /><br /> <b>Backend:</b> <br /> Created the APIs and backend business logic for the Administrator Panel with Node.js + AdonisJS.</p>
+    <a href="https://assetmart.global/" target="_blank"><i class="fa-solid fa-link"></i> Assetmart</a>`,
+  },
+  {
+    left: `
+    <h3> Automart PH (Oct 2021 - Dec 2022) </h3>
+    <img src="assets/img/automart.png" alt="Automart" loading="lazy" />
+    <div>
+      <span class="pill">React</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Node.js</span>
+      <span class="pill">AdonisJS</span>
+      <span class="pill">Ant Design</span>
+      <span class="pill">MySQL</span>
+    </div>
+    `,
+    right: `<p><b>Frontend: </b> <br />Added features and functionalities to the Administrator Panel frontend. 
+    <br /><br /> <b>Backend:</b> <br />
+    Modified and 
+    consolidated the designated APIs.</p>
+    <a href="https://automart.ph/" target="_blank"><i class="fa-solid fa-link"></i> Automart PH</a>`,
+  },
+  {
+    left: `
+    <h3> Smartway Solutions (Feb 2020 - Feb 2021) </h3>
+    <img src="assets/img/smartway.png" alt="Smartway Solutions" loading="lazy" />
+    <div>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Node.js</span>
+      <span class="pill">Express</span>
+      <span class="pill">MySQL</span>
+    </div>
+    `,
+    right: `<p><b>Frontend: </b> <br />Developed the entire Administrator Panel
+    <br /><br /> <b>Backend:</b> <br />
+    Created APIs and database models and services </p>
+    <a href="https://www.smartway-solutions-inc.com" target="_blank"><i class="fa-solid fa-link"></i> Smartway Solutions</a>
+    <a class="mt-1" href="mailto:walkerfleck@gmail.com"><i class="fa fa-envelope"></i> Walkerfleck (Senior Software Developer)</a>
+    `,
+  },
+];
+
 const loadImage = (src, callback = () => {}) => {
   const img = new Image();
 
