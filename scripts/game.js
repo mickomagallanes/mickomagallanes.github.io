@@ -6,7 +6,7 @@ class Game {
     this.panning = new Panning(this.player, this.keyboard);
     this.resume = new Resume();
     this.bookWork = new Book(
-      200,
+      1400,
       100,
       WORK_EXP,
       "assets/img/book-work.png",
