@@ -20,9 +20,27 @@ class PlayerDialog extends Dialog {
           "Take care of it, please",
         ],
       ],
+      [
+        "bookWork",
+        [
+          "Those are pretty cool projects",
+          "What do you think?",
+          "Wanna work with me?",
+        ],
+      ],
+      [
+        "bookPersonal",
+        [
+          "Can't wait to code when I get home",
+          "Have you read your SICP today?",
+          "Woah, I made those things?",
+        ],
+      ],
     ]);
     this.init = false;
     this.resume = false;
+    this.bookWork = false;
+    this.bookPersonal = false;
   }
 
   trackDialog = (x, y) => {
@@ -39,6 +57,26 @@ class PlayerDialog extends Dialog {
       this.setDialog(this.randomizedDialog("resume"));
       this.resume = true;
     }
+
+    if (this.currentDialog === null) {
+      this.resetDialogs();
+    }
+  };
+
+  triggerBook = (bookType) => {
+    if (!this[bookType]) {
+      this.setDialog(this.randomizedDialog(bookType));
+      this[bookType] = true;
+    }
+
+    if (this.currentDialog === null) {
+      this.resetDialogs();
+    }
+  };
+
+  resetDialogs = () => {
+    this.bookWork = false;
+    this.bookPersonal = false;
   };
 
   randomizedDialog = (key) => {

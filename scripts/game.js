@@ -12,6 +12,14 @@ class Game {
       "assets/img/book-work.png",
       "Work Projects"
     );
+
+    this.bookPersonal = new Book(
+      700,
+      500,
+      PERSONAL_EXP,
+      "assets/img/book-personal.png",
+      "Personal Projects"
+    );
   }
 
   init = () => {
@@ -88,6 +96,8 @@ class Game {
       this.map.drawBackground();
       this.checkDeath("resume", () => this.resume.drawResume());
       this.bookWork.drawBook();
+      this.bookPersonal.drawBook();
+
       // track player's position, pass it to pan (if canvas is too large, allow pan camera)
       // panning will be based on the player's position, with a huge offset radius
       this.player.trackMovement();
@@ -110,6 +120,26 @@ class Game {
     }
   };
 
+  checkBookCollision = (bookType) => {
+    if (
+      this.player.playerHitbox.checkCollision(this[bookType].hitbox) &&
+      this[bookType].bookModal.isInRange === false
+    ) {
+      this[bookType].triggerModal(); // also sets bookModal.isInRange to true
+      this.player.shouldStop = false;
+    } else if (
+      !this.player.playerHitbox.checkCollision(this[bookType].hitbox)
+    ) {
+      this[bookType].bookModal.isInRange = false;
+    } else if (this[bookType].bookModal.isShown) {
+      // if modal is open, stop player from moving
+      this.player.shouldStop = true;
+    } else if (!this[bookType].bookModal.isShown) {
+      this.player.shouldStop = false;
+      this.player.playerDialog.triggerBook(bookType);
+    }
+  };
+
   checkCollision = () => {
     if (
       this.resume &&
@@ -120,18 +150,7 @@ class Game {
       this.player.playerDialog.triggerResume();
     }
 
-    if (
-      this.player.playerHitbox.checkCollision(this.bookWork.hitbox) &&
-      this.bookWork.bookModal.isInRange === false
-    ) {
-      this.bookWork.triggerModal();
-      this.player.shouldStop = false;
-    } else if (!this.player.playerHitbox.checkCollision(this.bookWork.hitbox)) {
-      this.bookWork.bookModal.isInRange = false;
-    } else if (this.bookWork.bookModal.isShown) {
-      this.player.shouldStop = true;
-    } else if (!this.bookWork.bookModal.isShown) {
-      this.player.shouldStop = false;
-    }
+    this.checkBookCollision("bookWork");
+    this.checkBookCollision("bookPersonal");
   };
 }

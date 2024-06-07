@@ -151,8 +151,11 @@ h2, h3 {
 /* Styles for Screens Wider than 640px */
 @media (min-width: 640px) {
   #gallery div {
-    flex: 1;
     padding: 5px 0;
+  }
+
+  .gallery-div, .page {
+    flex: 1;
   }
 
   #gallery div:last-child {
@@ -165,6 +168,7 @@ h2, h3 {
   
   #leftGallery {
     margin-left: 10px;
+    justify-content: center;
   }
 
   #rightGallery {
@@ -177,6 +181,9 @@ h2, h3 {
     margin-left: 3px;
   }
   
+  p {
+    font-size: 17.2px;
+  }
 }
 
 /* Styles for Screens Narrower than 640px */
@@ -241,5 +248,18 @@ h2, h3 {
 }
 
 .mt-1 {
-  margin-top: 5px;
+  margin-top: 7px;
+}
+
+.fa-github {
+  font-size: 20px;
+  color: #333333;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-0 {
+  flex: 0 !important;
 }

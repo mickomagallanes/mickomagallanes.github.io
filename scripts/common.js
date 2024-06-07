@@ -143,10 +143,92 @@ const WORK_EXP = [
     `,
     right: `<p><b>Frontend: </b> <br />Developed the entire Administrator Panel
     <br /><br /> <b>Backend:</b> <br />
-    Created APIs and database models and services </p>
+    Created APIs endpoints, database models and business logic services </p>
     <a href="https://www.smartway-solutions-inc.com" target="_blank"><i class="fa-solid fa-link"></i> Smartway Solutions</a>
-    <a class="mt-1" href="mailto:walkerfleck@gmail.com"><i class="fa fa-envelope"></i> Walkerfleck (Senior Software Developer)</a>
+    <a class="mt-1" href="mailto:walkerfleck@gmail.com"><i class="fa fa-envelope"></i> Walkerfleck (Mentor)</a>
     `,
+  },
+];
+
+const PERSONAL_EXP = [
+  {
+    left: `
+    <h3> My Portfolio (April 2024 - Ongoing) </h3>
+    <img src="assets/img/portfolio.png" alt="My Portfolio" loading="lazy" />
+    <div> 
+      <span class="pill">HTML</span>
+      <span class="pill">Canvas API</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+    </div>
+    `,
+    right: `
+    <p>Pixel RPG game about me. I used HTML 5 canvas and animation frame. I wrote almost everything 
+    (I had to google/chatgpt some of them, of course) </p>
+    <div class="flex-0"><a href="https://github.com/mickomagallanes/mickomagallanes.github.io" target="_blank">
+    <i class="fa-brands fa-github"></i></a></div>`,
+  },
+  {
+    left: `
+    <h3> Crypto Tracker (May 2024 - Ongoing) </h3>
+    <img src="assets/img/crypto-tracker.png" alt="Crypto Tracker" loading="lazy" />
+    <div> 
+      <span class="pill">Next.js 14</span>
+      <span class="pill">React</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Tailwind</span>
+      <span class="pill">CoinGecko API</span>
+      <span class="pill">NewsData.io API</span>
+    </div>
+    `,
+    right: `
+    <p>A simple crypto tracker web-app. Supports mobile and desktop. I used Server Components to 
+    fetch data from different external APIs. Client Components for merely those who are supposed to.</p>
+    <a href="https://crypto-tracker-micko-magallanes-projects.vercel.app/" target="_blank"><i class="fa-solid fa-link"></i> Crypto Tracker</a>
+    <div class="flex-0 mt-1"><a href="https://github.com/mickomagallanes/crypto-tracker" target="_blank">
+    <i class="fa-brands fa-github"></i></a></div>`,
+  },
+  {
+    left: `
+    <h3> Carodus Admin Dashboard (Jan 2021 - Oct 2021) </h3>
+    <img src="assets/img/carodus.png" alt="Carodus Admin Dashboard" loading="lazy" />
+    <div> 
+      <span class="pill">React</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Redux</span>
+      <span class="pill">Bootstrap</span>
+      <span class="pill">Node.js</span>
+      <span class="pill">Express</span>
+      <span class="pill">MySQL</span>
+    </div>
+    `,
+    right: `
+    <p>Frontend is built with React + React Router. Backend is Node.js Express + MySQL. 
+     I handled authentication using cookies and bcrypt for the password. I used raw SQL and never used an ORM
+    </p>
+    <div class="flex-0 mt-1"><a href="https://github.com/mickomagallanes/2021-dashboard" target="_blank">
+    <i class="fa-brands fa-github"></i></a></div>`,
+  },
+  {
+    left: `
+    <h3> Shooter game (Jun 2019 - Oct 2019) </h3>
+    <img src="assets/img/shooter.png" alt="Shooter game" loading="lazy" />
+    <div> 
+      <span class="pill">HTML</span>
+      <span class="pill">Canvas API</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+    </div>
+    `,
+    right: `
+    <p>The project that taught me how to make an HTML 5 game. Thanks to my mentor Walkerfleck for guiding me!
+    </p>
+    <div class="flex-0 mt-1"><a href="https://github.com/mickomagallanes/shooter" target="_blank">
+    <i class="fa-brands fa-github"></i></a></div>`,
   },
 ];
 
