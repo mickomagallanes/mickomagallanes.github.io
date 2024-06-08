@@ -227,6 +227,7 @@ const PERSONAL_EXP = [
     right: `
     <p>The project that taught me how to make an HTML 5 game. Thanks to my mentor Walkerfleck for guiding me!
     </p>
+    <a href="https://mickomagallanes.github.io/shooter" target="_blank"><i class="fa-solid fa-link"></i> Shooter Game</a>
     <div class="flex-0 mt-1"><a href="https://github.com/mickomagallanes/shooter" target="_blank">
     <i class="fa-brands fa-github"></i></a></div>`,
   },
