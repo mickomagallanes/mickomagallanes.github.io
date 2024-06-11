@@ -148,6 +148,22 @@ const WORK_EXP = [
     <a class="mt-1" href="mailto:walkerfleck@gmail.com"><i class="fa fa-envelope"></i> Walkerfleck (Mentor)</a>
     `,
   },
+  {
+    left: `
+    <h3> Freelance PHP Developer (Jan 2019 - Oct 2021) </h3>
+    <img src="assets/img/pier22.png" alt="Pier 22" loading="lazy" />
+    <div>
+    <span class="pill">PHP</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">MySQL</span>
+    </div>
+    `,
+    right: `<p>Developed a couple of administrator panels for different websites</p>
+    <a class="mt-1" href="mailto:walkerfleck@gmail.com"><i class="fa fa-envelope"></i> Walkerfleck (Mentor)</a>
+    `,
+  },
 ];
 
 const PERSONAL_EXP = [
