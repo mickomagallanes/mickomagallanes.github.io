@@ -36,8 +36,21 @@ class PlayerDialog extends Dialog {
           "Woah, I made those things?",
         ],
       ],
+      [
+        "idle",
+        [
+          "I don't drink coffee btw",
+          "Did Vercel already fixed the Next.js caching?",
+          "I used to play CSGO and sweep the Asia server",
+          "Why is 6 afraid of 7? Coz 7 8 9! Get it? 7 ate 9? hehe...",
+          "Christ Jesus is King!",
+        ],
+      ],
     ]);
     this.init = false;
+    this.idle = false;
+    this.idleTimer = 0;
+    this.idleTimerMaxFrame = 800;
     this.resume = false;
     this.bookWork = false;
     this.bookPersonal = false;
@@ -47,6 +60,15 @@ class PlayerDialog extends Dialog {
     if (!this.init) {
       this.setDialog(this.randomizedDialog("init"));
       this.init = true;
+    } else if (!this.idle && this.currentDialog === null) {
+      if (this.idleTimer >= this.idleTimerMaxFrame) {
+        this.setDialog(this.randomizedDialog("idle"));
+        this.idle = true;
+      } else {
+        this.idleTimer++;
+      }
+    } else {
+      this.resetDialogs();
     }
 
     this.animateDialog(x, y);
@@ -77,6 +99,8 @@ class PlayerDialog extends Dialog {
   resetDialogs = () => {
     this.bookWork = false;
     this.bookPersonal = false;
+    this.idleTimer = 0;
+    this.idle = false;
   };
 
   randomizedDialog = (key) => {

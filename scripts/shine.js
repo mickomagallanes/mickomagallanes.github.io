@@ -4,7 +4,7 @@ class Shine {
     this.height = height;
     this.radius = width; // Initial radius for the shine effect
     this.shineGrowing = true; // Flag to determine the direction of the shine
-    this.maxRadius = width + width / 2; // Maximum radius for the shine effect
+    this.maxRadius = width + (width / 2); // Maximum radius for the shine effect
     this.minRadius = width / 2; // Minimum radius for the shine effect
     this.speed = 1;
   }

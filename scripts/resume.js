@@ -1,9 +1,9 @@
 class Resume {
   constructor() {
     this.spawnMinX = 1500;
-    this.spawnMaxX = 1800;
+    this.spawnMaxX = 1700;
     this.spawnMinY = 640;
-    this.spawnMaxY = CANVAS_HEIGHT - BOTTOM_TREES_HEIGHT;
+    this.spawnMaxY = 780;
     this.x = randomizeNumber(this.spawnMinX, this.spawnMaxX);
     this.y = randomizeNumber(this.spawnMinY, this.spawnMaxY);
 

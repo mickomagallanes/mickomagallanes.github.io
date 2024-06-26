@@ -63,7 +63,12 @@ const WORK_EXP = [
       <span class="pill">Zustand</span>
     </div>
     `,
-    right: `<p><b>Frontend:</b> <br /> Developed and maintained pages and components. Investigated bugs found in production. 
+    right: `<p> A fully unified platform for behavioral health software. Combining CRM 
+    (customer relationship management), EMR (electronic medical records), 
+    RCM (revenue cycle management) and NavixAI (artifcial intellgents) 
+    services into one seamless platform </p>
+    
+    <p><b>Frontend:</b> <br /> Developed and maintained pages and components. Investigated bugs found in production. 
     Refactored and applied coding principles to the existing old components. </p>
     <a href="https://navixhealth.com/" target="_blank"><i class="fa-solid fa-link"></i> Navix Health</a>`,
   },
@@ -82,10 +87,15 @@ const WORK_EXP = [
       <span class="pill">MySQL</span>
     </div>
     `,
-    right: `<p><b>Frontend: </b> <br /> Added features to the legacy Administrator Panel.
+    right: `
+    <p> Mobile app where customers can order products and get them delivered to their house </p>
+    <p><b>Frontend: </b> <br /> Added features to the legacy Administrator Panel.
     <br /><br /> <b>Backend:</b> <br />
     Converted the backend made in Node.js Express
-    to Laravel. Created APIs for the mobile app</p>`,
+    to Laravel. Created APIs for the mobile app. I developed the proximity map logic</p>
+    
+    <a href="https://play.google.com/store/apps/details?id=ph.phoenixfuels.limitless&hl=en&pli=1" target="_blank">
+    <i class="fa-solid fa-link"></i> Limitless App </a>`,
   },
   {
     left: `
@@ -103,12 +113,15 @@ const WORK_EXP = [
       <span class="pill">MySQL</span>
     </div>
     `,
-    right: `<p><b>Frontend: </b> <br />Developed and maintained the Administrator Panel for Assetmart. 
+    right: `
+     <p> Look for a property, schedule a property viewing, and chat with the Assetmart advisers </p>
+    <p><b>Frontend: </b> <br />Developed and maintained the Administrator Panel for Assetmart. 
    <br /><br /> <b>Backend:</b> <br /> Created the APIs and backend business logic for the Administrator Panel with Node.js + AdonisJS.</p>
     <a href="https://assetmart.global/" target="_blank"><i class="fa-solid fa-link"></i> Assetmart</a>`,
   },
   {
     left: `
+     
     <h3> Automart PH (Oct 2021 - Dec 2022) </h3>
     <img src="assets/img/automart.png" alt="Automart" loading="lazy" />
     <div>
@@ -122,7 +135,9 @@ const WORK_EXP = [
       <span class="pill">MySQL</span>
     </div>
     `,
-    right: `<p><b>Frontend: </b> <br />Added features and functionalities to the Administrator Panel frontend. 
+    right: `
+    <p> Bid or buy a repossessed car and speak with your adviser </p>
+    <p><b>Frontend: </b> <br />Added features and functionalities to the Administrator Panel frontend. 
     <br /><br /> <b>Backend:</b> <br />
     Modified and 
     consolidated the designated APIs.</p>
@@ -141,7 +156,9 @@ const WORK_EXP = [
       <span class="pill">MySQL</span>
     </div>
     `,
-    right: `<p><b>Frontend: </b> <br />Developed the entire Administrator Panel
+    right: `
+    <p> Tracking NB-IoT parking devices in real time </p>
+    <p><b>Frontend: </b> <br />Developed the entire Administrator Panel
     <br /><br /> <b>Backend:</b> <br />
     Created APIs endpoints, database models and business logic services </p>
     <a href="https://www.smartway-solutions-inc.com" target="_blank"><i class="fa-solid fa-link"></i> Smartway Solutions</a>
@@ -179,9 +196,30 @@ const PERSONAL_EXP = [
     </div>
     `,
     right: `
-    <p>Pixel RPG game about me. I used HTML 5 canvas and animation frame. I wrote almost everything 
-    (I had to google/chatgpt some of them, of course) </p>
+    <p>Pixel RPG game about me. You can find my personal projects, work projects and my resume. 
+    I used HTML 5 canvas and animation frame. No external libraries or frameworks used.</p>
     <div class="flex-0"><a href="https://github.com/mickomagallanes/mickomagallanes.github.io" target="_blank">
+    <i class="fa-brands fa-github"></i></a></div>`,
+  },
+  {
+    left: `
+    <h3> Basketball Stats App (June 21, 2024 - June 23, 2024) </h3>
+    <img src="assets/img/player-app.png" alt="Basketball Stats" loading="lazy" />
+    <div> 
+      <span class="pill">Next.js 14</span>
+      <span class="pill">React</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">Javascript</span>
+      <span class="pill">Tailwind CSS</span>
+      <span class="pill">Synergy Sports API</span>
+    </div>
+    `,
+    right: `
+    <p>An app I created for a job interview examination. I had to create it for a total of 16 hours. 
+    It fetches the stats of a basketball player </p>
+    <a href="https://player-app-micko-magallanes-projects.vercel.app/" target="_blank"><i class="fa-solid fa-link"></i> Basketball Stats App</a>
+    <div class="flex-0 mt-1"><a href="https://github.com/mickomagallanes/player-app" target="_blank">
     <i class="fa-brands fa-github"></i></a></div>`,
   },
   {
@@ -194,7 +232,7 @@ const PERSONAL_EXP = [
       <span class="pill">HTML</span>
       <span class="pill">CSS</span>
       <span class="pill">Javascript</span>
-      <span class="pill">Tailwind</span>
+      <span class="pill">Tailwind CSS</span>
       <span class="pill">CoinGecko API</span>
       <span class="pill">NewsData.io API</span>
     </div>
