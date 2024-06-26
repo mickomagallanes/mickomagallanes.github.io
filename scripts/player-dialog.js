@@ -68,7 +68,8 @@ class PlayerDialog extends Dialog {
         this.idleTimer++;
       }
     } else {
-      this.resetDialogs();
+      this.idleTimer = 0;
+      this.idle = false;
     }
 
     this.animateDialog(x, y);
@@ -99,8 +100,6 @@ class PlayerDialog extends Dialog {
   resetDialogs = () => {
     this.bookWork = false;
     this.bookPersonal = false;
-    this.idleTimer = 0;
-    this.idle = false;
   };
 
   randomizedDialog = (key) => {
