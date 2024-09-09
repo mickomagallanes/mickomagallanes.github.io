@@ -203,27 +203,6 @@ const PERSONAL_EXP = [
   },
   {
     left: `
-    <h3> Basketball Stats App (June 21, 2024 - June 23, 2024) </h3>
-    <img src="assets/img/player-app.png" alt="Basketball Stats" loading="lazy" />
-    <div> 
-      <span class="pill">Next.js 14</span>
-      <span class="pill">React</span>
-      <span class="pill">HTML</span>
-      <span class="pill">CSS</span>
-      <span class="pill">Javascript</span>
-      <span class="pill">Tailwind CSS</span>
-      <span class="pill">Synergy Sports API</span>
-    </div>
-    `,
-    right: `
-    <p>An app I created for a job interview examination. I had to create it for a total of 16 hours. 
-    It fetches the stats of a basketball player </p>
-    <a href="https://player-app-micko-magallanes-projects.vercel.app/" target="_blank"><i class="fa-solid fa-link"></i> Basketball Stats App</a>
-    <div class="flex-0 mt-1"><a href="https://github.com/mickomagallanes/player-app" target="_blank">
-    <i class="fa-brands fa-github"></i></a></div>`,
-  },
-  {
-    left: `
     <h3> Crypto Tracker (May 2024 - Ongoing) </h3>
     <img src="assets/img/crypto-tracker.png" alt="Crypto Tracker" loading="lazy" />
     <div> 
